@@ -2,20 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class SceneManagement : MonoBehaviour
 {
-   
-  
-    public void GoToMainSceneCoroutine()
+    [Header("Menu Buttons")]
+    [SerializeField] private Button newGameButton;
+    [SerializeField] private Button continueButton;
+    
+
+    public void OnNewGameClicked()
     {
+        DisableButtons();
         StartCoroutine(GoToMainScene());
+
     }
-    public void GoToStartSceneCoroutine()
+    public void GoToMainMenu()
     {
-        StartCoroutine(GoToStartScene());
+        StartCoroutine(GoToMainMenuCoro());
     }
-    public void GoToContinueCoroutine()
+    public void OnContinueGameClicked()
     {
+        DisableButtons();
         StartCoroutine(GoToContinue());
     }
     public void GoToCreditsCoroutine()
@@ -30,13 +38,17 @@ public class SceneManagement : MonoBehaviour
 
     private IEnumerator GoToMainScene()
     {
+        DataPersistenceManager.instance.isThereAnyDataSaved = false;
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadScene("MainScene1");
+        SceneManager.LoadSceneAsync("MainScene1");
+
     }
     private IEnumerator GoToContinue()
     {
+        DataPersistenceManager.instance.isThereAnyDataSaved = true;
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadScene("MainScene1");
+        SceneManager.LoadSceneAsync("MainScene1");
+
     }
 
    
@@ -55,17 +67,21 @@ public class SceneManagement : MonoBehaviour
         }
 
     }
-
     private IEnumerator GoToCredits()
     {
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadScene("Credits");
+        SceneManager.LoadSceneAsync("Credits");
     }
 
-    private IEnumerator GoToStartScene()
+    private IEnumerator GoToMainMenuCoro()
     {
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadSceneAsync("StartScene");
     }
 
+    private void DisableButtons()
+    {
+        newGameButton.interactable = false;
+        continueButton.interactable = false;
+    }
 }

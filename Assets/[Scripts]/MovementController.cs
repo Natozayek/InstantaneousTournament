@@ -4,7 +4,7 @@ using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class MovementController : MonoBehaviour
+public class MovementController : MonoBehaviour, IDataPersistence//IDataPersistance needed for saving
 {
     public Rigidbody2D rigidbody;
    // private new SpriteRenderer spriteRenderer;
@@ -25,6 +25,7 @@ public class MovementController : MonoBehaviour
     public SpriteRendererController spriteAnimRight;
     private SpriteRendererController activeAnimation;
 
+    #region Asper work 
     //Asper
     //Needed to know if it is Moving
     public bool isMoving = false;
@@ -57,12 +58,26 @@ public class MovementController : MonoBehaviour
 
     //To enter battle screen
     public GameObject battleS;
+    #endregion
+
 
     private void Awake()
     {
        rigidbody = GetComponent<Rigidbody2D>();
        activeAnimation =  spriteAnimDown;
     }
+
+    #region //Save data for location
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = this.transform.position;
+    }
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -71,7 +86,6 @@ public class MovementController : MonoBehaviour
         UpCollider = upBox.GetComponent<InteractSquare>();
         LeftCollider = leftBox.GetComponent<InteractSquare>();
         RightCollider = rightBox.GetComponent<InteractSquare>();
-
         interactBox = downBox;
         InteractCollider = interactBox.GetComponent<InteractSquare>();
     }

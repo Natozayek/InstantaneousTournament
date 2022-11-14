@@ -230,16 +230,13 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if (inBush == true)
         {
             float Chance = Random.value; // a random number between 0 and 1.0
-            Debug.Log("Random: " + Chance);
+          //  Debug.Log("Random: " + Chance);
             if (Chance < 0.1) // a 10% chance
             {
                 Debug.Log("BATTLE");
                 battleS.gameObject.SetActive(true);
             }
-            else
-            {
-                Debug.Log("AVOID");
-            }
+        
         }
 
     }

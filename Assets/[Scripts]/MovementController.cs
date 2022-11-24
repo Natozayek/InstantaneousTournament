@@ -58,6 +58,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     //To enter battle screen
     public GameObject battleS;
+
+    public Bush selectedBush;
     #endregion
 
 
@@ -203,6 +205,24 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         activeAnimation.idle = direction == Vector2.zero;
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bush") //if the object colliding with the trigger has Player tag
+        {
+            selectedBush = collision.gameObject.GetComponent<Bush>();
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bush") //if the object colliding with the trigger has Player tag
+        {
+            selectedBush = null;
+
+        }
+    }
+
     IEnumerator Move(Vector3 tPos)
     {
         Vector3 sPos = transform.position;
@@ -233,8 +253,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
           //  Debug.Log("Random: " + Chance);
             if (Chance < 0.1) // a 10% chance
             {
-                Debug.Log("BATTLE");
                 battleS.gameObject.SetActive(true);
+                selectedBush.Encounter();
             }
         
         }

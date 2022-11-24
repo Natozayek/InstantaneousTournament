@@ -8,6 +8,13 @@ public class Bush : MonoBehaviour
     public GameObject Player;
     //To get the Player MovementController Script
     MovementController PlayerController;
+    [Header("TypesOfPokemon \n ThatMayAppear")]
+    public List<Pokemon> PokemonListFromBush;
+    [Header("% of Appearing \n Element = PokemonListFromBush Element \n Must be 100 in total")]
+    public List<int> PokemonListFromBushChancesOfAppearing;
+    [Header("Final Pokemon List, Leave Empty")]
+    public List<Pokemon> pokemonListFinal;
+    public BattleSceneManager battleSceneManager;
 
     // Start is called before the first frame update
     void Start()
@@ -37,5 +44,25 @@ public class Bush : MonoBehaviour
             PlayerController.inBush = false; //Change inBush value from player to false
             Debug.Log("On Bush: " + PlayerController.inBush);
         }
+    }
+
+    public void Encounter()
+    {
+        int random = Random.Range(1, 101);
+        int maxChance = 100;
+        int i = 0;
+
+        while (pokemonListFinal.Count < maxChance)
+        {
+            for (int x = 0; x < PokemonListFromBushChancesOfAppearing[i]; x++)
+            {
+                pokemonListFinal.Add(PokemonListFromBush[i]);
+            }
+            i++;
+        }
+
+        Pokemon selectedPokemon = pokemonListFinal[random];
+        battleSceneManager.PokemonBattle(selectedPokemon);
+
     }
 }

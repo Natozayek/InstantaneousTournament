@@ -7,7 +7,7 @@ public class PokemonScript : MonoBehaviour
 {
     public BattleSceneManager battleSceneManager;
 
-    public Pokemon pokemonAttackIndex;
+    public Pokemon pokemon;
 
     public List<Attacks> ListAttacks;
 
@@ -21,27 +21,20 @@ public class PokemonScript : MonoBehaviour
     {
 
         PokemonSprite = GetComponent<Image>();
-        if(gameObject == battleSceneManager.PokemonSlotInBattle[0])
+
+        if (gameObject == battleSceneManager.PokemonSlotInBattle[0])
         {
             //pokemon.isPlayerPokemon = true;
-            PokemonSprite.sprite = pokemonAttackIndex.poke1;
+            PokemonSprite.sprite = pokemon.poke1;
 
-            ListAttacks.Add(pokemonAttackIndex.attack0);
-            ListAttacks.Add(pokemonAttackIndex.attack1);
-            ListAttacks.Add(pokemonAttackIndex.attack2);
-            ListAttacks.Add(pokemonAttackIndex.attack3);
+            ListAttacks.Add(pokemon.attack0);
+            ListAttacks.Add(pokemon.attack1);
+            ListAttacks.Add(pokemon.attack2);
+            ListAttacks.Add(pokemon.attack3);
 
         }
-        else if(gameObject == battleSceneManager.PokemonSlotInBattle[1])
-        {
-            //pokemon.isPlayerPokemon = true;
-            PokemonSprite.sprite = pokemonAttackIndex.poke2;
 
-            ListAttacks.Add(pokemonAttackIndex.attack0);
-            ListAttacks.Add(pokemonAttackIndex.attack1);
-            ListAttacks.Add(pokemonAttackIndex.attack2);
-            ListAttacks.Add(pokemonAttackIndex.attack3);
-        }
+        //PokemonBattleStartUpdate();
 
     }
 
@@ -49,18 +42,42 @@ public class PokemonScript : MonoBehaviour
     void Update()
     {
         PokemonAnimations.SetBool("isPlayerPokemon", isPlayerPokemon);
+        if (pokemon != null)
+        {
+            if (gameObject == battleSceneManager.PokemonSlotInBattle[1])
+            {
+
+                PokemonBattleStartUpdate();
+            }
+        }
+
+    }
+
+    public void PokemonBattleStartUpdate()
+    {
+        //pokemon = pokemonS;
+
+        PokemonSprite.sprite = pokemon.poke2;
+
+        ListAttacks.Add(pokemon.attack0);
+        ListAttacks.Add(pokemon.attack1);
+        ListAttacks.Add(pokemon.attack2);
+        ListAttacks.Add(pokemon.attack3);
+
+        //if (gameObject == battleSceneManager.PokemonSlotInBattle[1])
+        //{
+        //    //pokemon.isPlayerPokemon = true;
+        //    PokemonSprite.sprite = pokemon.poke2;
+
+        //    ListAttacks.Add(pokemon.attack0);
+        //    ListAttacks.Add(pokemon.attack1);
+        //    ListAttacks.Add(pokemon.attack2);
+        //    ListAttacks.Add(pokemon.attack3);
+        //}
     }
 
     public void InputAttackCommand(int i)
     {
-        //if(isPlayerPokemon)
-        //{
-        //    PokemonAnimations.Play(ListAttacks[i].animationNamePlayer);
-        //}
-        //else
-        //{
-        //    PokemonAnimations.Play(ListAttacks[i].animationNameEnemy);
-        //}
 
         attackIndex = i;
         battleSceneManager.BattleProgression();

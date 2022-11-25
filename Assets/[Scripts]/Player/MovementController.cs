@@ -65,6 +65,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     //To enter battle screen
     public GameObject battleS;
+
+    public Bush selectedBush;
     #endregion
 
 
@@ -238,7 +240,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
             transform.position = Vector3.MoveTowards(transform.position, tPos, speed * Time.deltaTime);
 
-            Debug.Log("Is Moving " + isMoving);
+           
 
             yield return null;
         }
@@ -257,6 +259,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             {
                
                 battleS.gameObject.SetActive(true);
+                selectedBush.Encounter();
             }
             
         }
@@ -278,16 +281,31 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToTownCoro());
     }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("CaveNtrance"))
         {
             GoToCave();
         }
+
         if (other.CompareTag("CaveExit"))
         {
             GoToTown();
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Bush")
+        {
+            selectedBush = other.gameObject.GetComponent<Bush>();
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Bush")
+        {
+            selectedBush = null;
         }
     }
 }

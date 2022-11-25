@@ -12,19 +12,13 @@ public class Fader : MonoBehaviour
    private void Awake()
     {
         animator = GetComponent<Animator>();
-
-        
         instance = this;
-
-
 
     }
 
    private void Start()
    {
-       
        fadeOut();
-    
    }
 
 

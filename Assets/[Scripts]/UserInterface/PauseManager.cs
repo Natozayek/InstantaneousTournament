@@ -25,7 +25,6 @@ public class PauseManager : MonoBehaviour
     }
     public void SaveGame()
     {
-        
         DataPersistenceManager.instance.SaveGame();
     }
 

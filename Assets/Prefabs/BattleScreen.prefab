@@ -281,7 +281,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4555017796934121967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab1569b1e919314aa3e5d560b93a5e6, type: 3}
+  m_Script: {fileID: 11500000, guid: fac2a2568415c3446b93d7c8ddde68de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BattlseScene: {fileID: 4555017797609753822}
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4555017797358074024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab1569b1e919314aa3e5d560b93a5e6, type: 3}
+  m_Script: {fileID: 11500000, guid: fac2a2568415c3446b93d7c8ddde68de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BattlseScene: {fileID: 4555017797609753822}
@@ -783,7 +783,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4555017797392200111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab1569b1e919314aa3e5d560b93a5e6, type: 3}
+  m_Script: {fileID: 11500000, guid: fac2a2568415c3446b93d7c8ddde68de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BattlseScene: {fileID: 4555017797609753822}
@@ -940,7 +940,7 @@ RectTransform:
   - {fileID: 4555017797245603094}
   - {fileID: 4555017797653040526}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4555017798498544236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab1569b1e919314aa3e5d560b93a5e6, type: 3}
+  m_Script: {fileID: 11500000, guid: fac2a2568415c3446b93d7c8ddde68de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BattlseScene: {fileID: 4555017797609753822}

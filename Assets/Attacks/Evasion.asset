@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65cde73da08cb34c88e302cad4456a4, type: 3}
   m_Name: Evasion
   m_EditorClassIdentifier: 
+  Damage: -1
+  Accuaracy: 0
+  MaxPP: 20
+  Type: 3
+  isOffensive: 0
+  isHeal: 0
+  isBuff: 1
+  buffType: 3
+  isEmpty: 0
   animationNamePlayer: Evasion
   animationNameEnemy: EvasionE

@@ -1,3 +1,4 @@
+using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,72 +9,87 @@ public class PokemonScript : MonoBehaviour
     public BattleSceneManager battleSceneManager;
 
     public Pokemon pokemon;
-
+    //public Image PokemonSprite;
     public List<Attacks> ListAttacks;
-
-    public Image PokemonSprite;
-    public Animator PokemonAnimations;
     public bool isPlayerPokemon = false;
+
+    [Header("StatsFinal")]
+    public int FinalHP;
+    public int FinalAtk;
+    public int FinalDef;
+    public int FinalSpeed;
+
+    [Header("StatsBuff")]
+    public int BuffAtk;
+    public int BuffDef;
+    public int BuffSpeed;
+
+    [Header("StatsOthers")]
+    public int lvl = 1;
+    public int currentHP;
+
+    [Header("AttackRelated")]
+    public List<int> CurrentPP;
+    public List<int> TimesUsedInARow;
+
+
+    public Animator PokemonAnimations;
+
     public int attackIndex = -1;
+    public bool pokemonUpdated = false;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+    }
     void Start()
     {
-
-        PokemonSprite = GetComponent<Image>();
-
-        if (gameObject == battleSceneManager.PokemonSlotInBattle[0])
-        {
-            //pokemon.isPlayerPokemon = true;
-            PokemonSprite.sprite = pokemon.poke1;
-
-            ListAttacks.Add(pokemon.attack0);
-            ListAttacks.Add(pokemon.attack1);
-            ListAttacks.Add(pokemon.attack2);
-            ListAttacks.Add(pokemon.attack3);
-
-        }
-
-        //PokemonBattleStartUpdate();
-
+        battleSceneManager = FindObjectOfType<BattleSceneManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         PokemonAnimations.SetBool("isPlayerPokemon", isPlayerPokemon);
+
+        //if (isPlayerPokemon)
+        //{
+        //    gameObject.GetComponent<Image>().sprite = pokemon.poke1;
+        //}
+        //else
+        //{
+        //    gameObject.GetComponent<Image>().sprite = pokemon.poke2;
+        //}
+
         if (pokemon != null)
         {
-            if (gameObject == battleSceneManager.PokemonSlotInBattle[1])
+            if (pokemonUpdated == false)
             {
-
                 PokemonBattleStartUpdate();
             }
         }
-
     }
 
     public void PokemonBattleStartUpdate()
     {
-        //pokemon = pokemonS;
-
-        PokemonSprite.sprite = pokemon.poke2;
 
         ListAttacks.Add(pokemon.attack0);
+        CurrentPP.Add(pokemon.attack0.MaxPP);
+        TimesUsedInARow.Add(0);
         ListAttacks.Add(pokemon.attack1);
+        CurrentPP.Add(pokemon.attack1.MaxPP);
+        TimesUsedInARow.Add(0);
         ListAttacks.Add(pokemon.attack2);
+        CurrentPP.Add(pokemon.attack2.MaxPP);
+        TimesUsedInARow.Add(0);
         ListAttacks.Add(pokemon.attack3);
+        CurrentPP.Add(pokemon.attack3.MaxPP);
+        TimesUsedInARow.Add(0);
 
-        //if (gameObject == battleSceneManager.PokemonSlotInBattle[1])
-        //{
-        //    //pokemon.isPlayerPokemon = true;
-        //    PokemonSprite.sprite = pokemon.poke2;
+        SetHPToMax();
+        SetPPToMax();
 
-        //    ListAttacks.Add(pokemon.attack0);
-        //    ListAttacks.Add(pokemon.attack1);
-        //    ListAttacks.Add(pokemon.attack2);
-        //    ListAttacks.Add(pokemon.attack3);
-        //}
+        pokemonUpdated = true;
     }
 
     public void InputAttackCommand(int i)
@@ -88,10 +104,112 @@ public class PokemonScript : MonoBehaviour
         if (isPlayerPokemon)
         {
             PokemonAnimations.Play(ListAttacks[attackIndex].animationNamePlayer);
+            CurrentPP[attackIndex]--;
         }
         else
         {
             PokemonAnimations.Play(ListAttacks[attackIndex].animationNameEnemy);
+            CurrentPP[attackIndex]--;
+            TimesUsedInARow[attackIndex]++;
+            for (int i = 0; i < ListAttacks.Count; i++)
+            {
+                if (i != attackIndex)
+                {
+                    TimesUsedInARow[i] = 0;
+                }
+            }
         }
     }
+
+    public void SetHPToMax()
+    {
+        currentHP = GetFinalHp();
+    }
+
+    public void SetPPToMax()
+    {
+        for (int cPP = 0; cPP < CurrentPP.Count; cPP++)
+        {
+            CurrentPP[cPP] = ListAttacks[cPP].MaxPP;
+        }
+    }
+
+    //public void UpdatePokemonStats()
+    //{
+    //    FinalHP = pokemon.BaseHP + (pokemon.MultHP * lvl);
+    //    FinalAtk = pokemon.BaseAtk + BuffAtk + (pokemon.MultAtk * lvl);
+    //    FinalDef = pokemon.BaseDef + BuffDef + (pokemon.MultDef * lvl);
+    //    FinalSpeed = pokemon.BaseSpeed + BuffSpeed + (pokemon.MultSpeed * lvl);
+    //}
+
+    public int GetFinalHp()
+    {
+        FinalHP = pokemon.BaseHP + (pokemon.MultHP * lvl);
+        return FinalHP;
+    }
+
+    //public int GetFinalAtk()
+    //{
+    //    FinalAtk = pokemon.BaseAtk + BuffAtk + (pokemon.MultAtk * lvl);
+    //    return FinalAtk;
+    //}
+
+    //public int GetFinalDef()
+    //{
+    //    FinalDef = pokemon.BaseDef + BuffDef + (pokemon.MultDef * lvl);
+    //    return FinalDef;
+    //}
+
+    //public int GetFinalSpeed()
+    //{
+    //    FinalSpeed = pokemon.BaseSpeed + BuffSpeed + (pokemon.MultSpeed * lvl);
+    //    return FinalSpeed;
+    //}
+
+    public void Initiate(Pokemon pkmn, bool isPlayer, int l)
+    {
+        pokemon = pkmn;
+        isPlayerPokemon = isPlayer;
+        GameObject position;
+        if (isPlayerPokemon == true)
+        {
+            gameObject.GetComponent<Image>().sprite = pkmn.poke1;
+            position = GameObject.Find("PlayerPokemon");
+            transform.parent = position.transform;
+            transform.position = position.transform.position;
+
+        }
+        else
+        {
+            gameObject.GetComponent<Image>().sprite = pkmn.poke2;
+            position = GameObject.Find("EnemyPokemon");
+            transform.parent = position.transform;
+            transform.position = position.transform.position;
+        }
+        lvl = l; 
+    }
+
+    public void Initiate(PokemonScript pkmScript)
+    {
+        pokemon = pkmScript.pokemon;
+        isPlayerPokemon = pkmScript.isPlayerPokemon;
+        GameObject position;
+        if (isPlayerPokemon == true)
+        {
+            gameObject.GetComponent<Image>().sprite = pkmScript.pokemon.poke1;
+            position = GameObject.Find("PlayerPokemon");
+            transform.parent = position.transform;
+            transform.position = position.transform.position;
+
+        }
+        else
+        {
+            gameObject.GetComponent<Image>().sprite = pkmScript.pokemon.poke2;
+            position = GameObject.Find("EnemyPokemon");
+            transform.parent = position.transform;
+            transform.position = position.transform.position;
+        }
+        lvl = pkmScript.lvl;
+    }
+
 }

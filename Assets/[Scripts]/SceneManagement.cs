@@ -9,6 +9,7 @@ public class SceneManagement : MonoBehaviour
     [Header("Menu Buttons")]
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
+
     
 
     public void OnNewGameClicked()

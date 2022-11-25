@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -25,6 +26,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public SpriteRendererController spriteAnimLeft;
     public SpriteRendererController spriteAnimRight;
     private SpriteRendererController activeAnimation;
+
+
+    public Fader fader;
+
+    
 
     #region Asper work 
     //Asper
@@ -89,6 +95,9 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         RightCollider = rightBox.GetComponent<InteractSquare>();
         interactBox = downBox;
         InteractCollider = interactBox.GetComponent<InteractSquare>();
+     
+
+      
     }
 
     // Update is called once per frame
@@ -183,6 +192,18 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
                 }
             }
         }
+
+        //if (battleS.gameObject.activeSelf == true)
+        //{
+        //    Debug.Log("Disabling");
+        //    fader.GetComponent<Image>().enabled = false;
+        //}
+        //else
+        //{
+        //    Debug.Log("Enabling");
+        //    fader.GetComponent<Image>().enabled = true;
+        //}
+
     }
 
     //Moving position to a new direction
@@ -246,14 +267,16 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public void GoToCave()
     {
-        StartCoroutine(GoToCaveCoro());
-    }
-    private IEnumerator GoToCaveCoro()
-    {
         
-        yield return new WaitForSeconds(0.2f);
-        SceneManager.LoadSceneAsync("Cave");
+        fader.fadeIn();
+        fader.StartCoroutine(fader.GoToCaveCoro());
+    }
 
+    public void GoToTown()
+    {
+
+        fader.fadeIn();
+        fader.StartCoroutine(fader.GoToTownCoro());
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -261,6 +284,10 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if (other.CompareTag("CaveNtrance"))
         {
             GoToCave();
+        }
+        if (other.CompareTag("CaveExit"))
+        {
+            GoToTown();
         }
     }
 }

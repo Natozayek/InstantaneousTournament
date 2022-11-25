@@ -6,6 +6,7 @@ using UnityEngine;
 public class AttacksSlot : MonoBehaviour
 {
     public PokemonScript Pokemon;
+    public PokemonSlot PokemonSlot;
     public Attacks Attack;
     public int AttackIndex;
 
@@ -19,6 +20,8 @@ public class AttacksSlot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Pokemon = PokemonSlot.GetPokemon();
+
         AttackUpdate();
         UpdateUi();
     }
@@ -26,6 +29,7 @@ public class AttacksSlot : MonoBehaviour
     public void UpdateUi()
     {
         ButtonText.text = Attack.name;
+        
     }
 
     public void AttackUpdate()
@@ -49,6 +53,9 @@ public class AttacksSlot : MonoBehaviour
 
     public void AttackCommand()
     {
-        Pokemon.InputAttackCommand(AttackIndex);
+        if (Attack.isEmpty == false)
+        {
+            Pokemon.InputAttackCommand(AttackIndex);
+        }
     }
 }

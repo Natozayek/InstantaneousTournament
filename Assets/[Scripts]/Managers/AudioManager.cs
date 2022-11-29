@@ -80,7 +80,7 @@ public class AudioManager : MonoBehaviour
     /// Fade from whatever is currently playing to the goalTrack over time /// </summary>
     /// <param name="goalTrack">the new track to play</param>
     /// <param name="transitionInSeconds">total crossfade duration</param>
-    public void CrossFadeTO(TrackID goalTrack, float transitionInSeconds = 3.0f)
+    public void CrossFadeTO(TrackID goalTrack, float transitionInSeconds = 1.0f)
     {
         AudioSource oldTrack = musicAudioSource;
         AudioSource newTrack = musicAudioSource2;

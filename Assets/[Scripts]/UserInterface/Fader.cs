@@ -8,6 +8,7 @@ public class Fader : MonoBehaviour
    Animator animator;
    
    public static Fader instance;
+   public AudioManager audioManager;
 
    private void Awake()
     {
@@ -18,7 +19,9 @@ public class Fader : MonoBehaviour
 
    private void Start()
    {
-       fadeOut();
+        fadeOut();
+        //audioManager = GetComponent<AudioManager>();
+        audioManager.playTrack(AudioManager.TrackID.inTown);
    }
 
 
@@ -50,4 +53,12 @@ public class Fader : MonoBehaviour
         SceneManager.LoadScene("MainScene1");
 
     }
+
+    //public IEnumerator GoToBattle(GameObject BattleScene)
+    //{
+    //    yield return new WaitForSeconds(0.4f);
+    //    BattleScene.SetActive(true);
+    //    fadeOut();
+
+    //}
 }

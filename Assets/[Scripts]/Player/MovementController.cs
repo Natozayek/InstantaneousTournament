@@ -12,6 +12,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
    // private new SpriteRenderer spriteRenderer;
     private Vector2 direction = Vector2.down;
     public float speed = 5f;
+    float speedValue;
 
     [Header("Input")]
     public KeyCode inputUp = KeyCode.W;
@@ -67,6 +68,9 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public GameObject battleS;
 
     public Bush selectedBush;
+
+    public bool inBattle = false;
+    public AudioManager audioManager;
     #endregion
 
 
@@ -97,115 +101,117 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         RightCollider = rightBox.GetComponent<InteractSquare>();
         interactBox = downBox;
         InteractCollider = interactBox.GetComponent<InteractSquare>();
-     
 
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
+
+        speedValue = speed;
       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (battleS.gameObject.activeSelf == false) // to avoid movement while fighting
+        if (inBattle == true)
         {
-            if (!isMoving)
+            speed = 0;
+        }
+        else
+        {
+            speed = speedValue;
+
+            if (battleS.gameObject.activeSelf == false) // to avoid movement while fighting
             {
-                //Check if there is any movement
-                movement.x = Input.GetAxisRaw("Horizontal");
-                movement.y = Input.GetAxisRaw("Vertical");
+                if (!isMoving)
+                {
+                    //Check if there is any movement
+                    movement.x = Input.GetAxisRaw("Horizontal");
+                    movement.y = Input.GetAxisRaw("Vertical");
 
-                //No diagonal movement
-                if (movement.x != 0)
-                {
-                    movement.y = 0;
-                }
+                    //No diagonal movement
+                    if (movement.x != 0)
+                    {
+                        movement.y = 0;
+                    }
 
-                //Change Direction and animation also will change the interaction box to the one
-                //the player is aiming for and will see if it can or cant move on that direction 
-                //I tried making it so that the box would change position when the player moved 
-                //but for some reason there was a bug.
-                if (movement.y == 1) //Up
-                {
-                    SetDirection(Vector2.up, spriteAnimUp);
-                    interactBox = upBox;
-                    if (UpCollider.isObstacle == false)
+                    //Change Direction and animation also will change the interaction box to the one
+                    //the player is aiming for and will see if it can or cant move on that direction 
+                    //I tried making it so that the box would change position when the player moved 
+                    //but for some reason there was a bug.
+                    if (movement.y == 1) //Up
                     {
-                        canMove = true;
+                        SetDirection(Vector2.up, spriteAnimUp);
+                        interactBox = upBox;
+                        if (UpCollider.isObstacle == false)
+                        {
+                            canMove = true;
+                        }
+                        else
+                        {
+                            canMove = false;
+                        }
                     }
-                    else
+                    else if (movement.y == -1) // Down
                     {
-                        canMove = false;
+                        SetDirection(Vector2.down, spriteAnimDown);
+                        interactBox = downBox;
+                        if (DownCollider.isObstacle == false)
+                        {
+                            canMove = true;
+                        }
+                        else
+                        {
+                            canMove = false;
+                        }
                     }
-                }
-                else if (movement.y == -1) // Down
-                {
-                    SetDirection(Vector2.down, spriteAnimDown);
-                    interactBox = downBox;
-                    if (DownCollider.isObstacle == false)
+                    else if (movement.x == -1) // Left
                     {
-                        canMove = true;
+                        SetDirection(Vector2.left, spriteAnimLeft);
+                        interactBox = leftBox;
+                        if (LeftCollider.isObstacle == false)
+                        {
+                            canMove = true;
+                        }
+                        else
+                        {
+                            canMove = false;
+                        }
                     }
-                    else
+                    else if (movement.x == 1) //Right
                     {
-                        canMove = false;
+                        SetDirection(Vector2.right, spriteAnimRight);
+                        interactBox = rightBox;
+                        if (RightCollider.isObstacle == false)
+                        {
+                            canMove = true;
+                        }
+                        else
+                        {
+                            canMove = false;
+                        }
                     }
-                }
-                else if (movement.x == -1) // Left
-                {
-                    SetDirection(Vector2.left, spriteAnimLeft);
-                    interactBox = leftBox;
-                    if (LeftCollider.isObstacle == false)
+                    else//No Movement
                     {
-                        canMove = true;
+                        SetDirection(Vector2.zero, activeAnimation);
                     }
-                    else
-                    {
-                        canMove = false;
-                    }
-                }
-                else if (movement.x == 1) //Right
-                {
-                    SetDirection(Vector2.right, spriteAnimRight);
-                    interactBox = rightBox;
-                    if (RightCollider.isObstacle == false)
-                    {
-                        canMove = true;
-                    }
-                    else
-                    {
-                        canMove = false;
-                    }
-                }
-                else//No Movement
-                {
-                    SetDirection(Vector2.zero, activeAnimation);
-                }
 
-                //Start Movement
-                if (canMove == true)
-                {
-                    if (movement != Vector2.zero)
+                    //Start Movement
+                    if (canMove == true)
                     {
-                        var targetPos = transform.position; //Makes a vector with targer position
-                        targetPos.x += movement.x; //Add either 1 or -1 to X which is the tile on top or down
-                        targetPos.y += movement.y; //Same but with Y either left or right
+                        if (movement != Vector2.zero)
+                        {
+                            var targetPos = transform.position; //Makes a vector with targer position
+                            targetPos.x += movement.x; //Add either 1 or -1 to X which is the tile on top or down
+                            targetPos.y += movement.y; //Same but with Y either left or right
 
-                        StartCoroutine(Move(targetPos)); //Start Move Coroutine for tile base movement
+                            if (inBattle == false)
+                            {
+                                StartCoroutine(Move(targetPos)); //Start Move Coroutine for tile base movement
+                            }
+                        }
                     }
                 }
             }
         }
-
-        //if (battleS.gameObject.activeSelf == true)
-        //{
-        //    Debug.Log("Disabling");
-        //    fader.GetComponent<Image>().enabled = false;
-        //}
-        //else
-        //{
-        //    Debug.Log("Enabling");
-        //    fader.GetComponent<Image>().enabled = true;
-        //}
-
     }
 
     //Moving position to a new direction
@@ -235,15 +241,20 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
         //Will move towards the new position until the diference in distance is
         //less than Epsilon (The smallest value that a float can have different from zero.)
-        while ((tPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+        if(inBattle == false)
         {
-
-            transform.position = Vector3.MoveTowards(transform.position, tPos, speed * Time.deltaTime);
-
-           
-
-            yield return null;
+            while ((tPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, tPos, speed * Time.deltaTime);
+                yield return null;
+            }
         }
+
+        //while ((tPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+        //{
+        //    transform.position = Vector3.MoveTowards(transform.position, tPos, speed * Time.deltaTime);
+        //    yield return null;
+        //}
 
         //Once it reaches now that is the new position for the character
         transform.position = tPos;
@@ -257,16 +268,26 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
            // Debug.Log("Random: " + Chance);
             if (Chance < 0.1) // a 10% chance
             {
-               
-                battleS.gameObject.SetActive(true);
-                selectedBush.Encounter();
+                ToBattle();
             }
             
         }
 
     }
 
+    public void ToBattle()
+    {
+        inBattle = true;
+        fader.fadeIn();
+        StartCoroutine(GoToBattle());
+    }
 
+    public void Flee() ////TEST
+    {
+        battleS.gameObject.SetActive(false);
+        audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
+        inBattle = false;
+    }
 
     public void GoToCave()
     {
@@ -307,5 +328,14 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         {
             selectedBush = null;
         }
+    }
+
+    public IEnumerator GoToBattle()
+    {
+        yield return new WaitForSeconds(0.4f);
+        battleS.gameObject.SetActive(true);
+        audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
+        selectedBush.Encounter();
+        fader.fadeOut();
     }
 }

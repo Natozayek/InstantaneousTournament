@@ -298,4 +298,14 @@ public class BattleSceneManager : MonoBehaviour
         Defender.currentHP -= finalDamage;
     }
 
+    public GameObject ReturnPokemon()
+    {
+        return PokemonSlotInBattle[0].GetComponent<PokemonSlot>().GetPokemonObject();
+    }
+
+    public void PokemonPlayerFleeSupport()
+    {
+        PokemonSlotInBattle[0].GetComponent<PokemonSlot>().PlayerFleeSupport();
+    }
+
 }

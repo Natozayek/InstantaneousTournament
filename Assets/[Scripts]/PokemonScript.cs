@@ -14,6 +14,7 @@ public class PokemonScript : MonoBehaviour
     public bool isPlayerPokemon = false;
 
     public string PokemonName;
+    public bool isAlive = true;
 
     [Header("StatsFinal")]
     public int FinalHP;
@@ -55,6 +56,11 @@ public class PokemonScript : MonoBehaviour
     void Update()
     {
         PokemonAnimations.SetBool("isPlayerPokemon", isPlayerPokemon);
+
+        if(battleSceneManager == null)
+        {
+            battleSceneManager = FindObjectOfType<BattleSceneManager>();
+        }
 
         if (pokemon != null)
         {

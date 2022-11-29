@@ -71,6 +71,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public bool inBattle = false;
     public AudioManager audioManager;
+    public PokemonInventory pokemonInventory;
     #endregion
 
 
@@ -284,6 +285,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public void Flee() ////TEST
     {
+        battleS.GetComponent<BattleSceneManager>().ReturnPokemon().transform.parent = pokemonInventory.transform;
+        battleS.GetComponent<BattleSceneManager>().PokemonPlayerFleeSupport();
         battleS.gameObject.SetActive(false);
         audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
         inBattle = false;
@@ -335,6 +338,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         yield return new WaitForSeconds(0.4f);
         battleS.gameObject.SetActive(true);
         audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
+        pokemonInventory.ChoosePokemon();
         selectedBush.Encounter();
         fader.fadeOut();
     }

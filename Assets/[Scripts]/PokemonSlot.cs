@@ -43,6 +43,16 @@ public class PokemonSlot : MonoBehaviour
         stats.StatsUpdate(pokemon.PokemonName, pokemon.lvl, pokemon.FinalHP, pokemon.currentHP);
     }
 
+    public void PlayerFleeSupport()
+    {
+        pokemon = null;
+        PokemonObject = null;
+    }
+    public GameObject GetPokemonObject()
+    {
+        return PokemonObject;
+    }
+
     public PokemonScript GetPokemon()
     {
         return pokemon;

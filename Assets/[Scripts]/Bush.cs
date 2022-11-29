@@ -7,6 +7,8 @@ public class Bush : MonoBehaviour
     //Get the Player
     public GameObject Player;
     public GameObject PokemonPrefab;
+    public int CurrentMaxLVL;
+    public int CurrentMinLVL;
     //To get the Player MovementController Script
     MovementController PlayerController;
     [Header("TypesOfPokemon \n ThatMayAppear")]
@@ -68,10 +70,10 @@ public class Bush : MonoBehaviour
         }
         Pokemon selectedPokemon = pokemonListFinal[random];
         GameObject newPokemon = Instantiate(PokemonPrefab);
-        newPokemon.GetComponent<PokemonScript>().Initiate(selectedPokemon, false, 1);
+        int randomLvl = Random.Range(CurrentMinLVL, CurrentMaxLVL);
+        newPokemon.GetComponent<PokemonScript>().Initiate(selectedPokemon, false, randomLvl);
         battleSceneManager.GetComponent<BattleSceneManager>().PokemonSlotInBattle[1].GetComponent<PokemonSlot>().AddPokemonToSlot(newPokemon);
 
-        //battleSceneManager.PokemonBattle(selectedPokemon);
 
     }
 }

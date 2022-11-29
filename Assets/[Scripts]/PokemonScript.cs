@@ -13,6 +13,8 @@ public class PokemonScript : MonoBehaviour
     public List<Attacks> ListAttacks;
     public bool isPlayerPokemon = false;
 
+    public string PokemonName;
+
     [Header("StatsFinal")]
     public int FinalHP;
     public int FinalAtk;
@@ -27,6 +29,7 @@ public class PokemonScript : MonoBehaviour
     [Header("StatsOthers")]
     public int lvl = 1;
     public int currentHP;
+    public int currentXP;
 
     [Header("AttackRelated")]
     public List<int> CurrentPP;
@@ -41,6 +44,7 @@ public class PokemonScript : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+
     }
     void Start()
     {
@@ -52,27 +56,21 @@ public class PokemonScript : MonoBehaviour
     {
         PokemonAnimations.SetBool("isPlayerPokemon", isPlayerPokemon);
 
-        //if (isPlayerPokemon)
-        //{
-        //    gameObject.GetComponent<Image>().sprite = pokemon.poke1;
-        //}
-        //else
-        //{
-        //    gameObject.GetComponent<Image>().sprite = pokemon.poke2;
-        //}
-
         if (pokemon != null)
         {
             if (pokemonUpdated == false)
             {
                 PokemonBattleStartUpdate();
             }
+            else
+            {
+                UpdatePokemonStats();
+            }
         }
     }
 
     public void PokemonBattleStartUpdate()
     {
-
         ListAttacks.Add(pokemon.attack0);
         CurrentPP.Add(pokemon.attack0.MaxPP);
         TimesUsedInARow.Add(0);
@@ -134,13 +132,14 @@ public class PokemonScript : MonoBehaviour
         }
     }
 
-    //public void UpdatePokemonStats()
-    //{
-    //    FinalHP = pokemon.BaseHP + (pokemon.MultHP * lvl);
-    //    FinalAtk = pokemon.BaseAtk + BuffAtk + (pokemon.MultAtk * lvl);
-    //    FinalDef = pokemon.BaseDef + BuffDef + (pokemon.MultDef * lvl);
-    //    FinalSpeed = pokemon.BaseSpeed + BuffSpeed + (pokemon.MultSpeed * lvl);
-    //}
+    public void UpdatePokemonStats()
+    {
+        PokemonName = pokemon.name;
+        FinalHP = pokemon.BaseHP + (pokemon.MultHP * lvl);
+        FinalAtk = pokemon.BaseAtk + BuffAtk + (pokemon.MultAtk * lvl);
+        FinalDef = pokemon.BaseDef + BuffDef + (pokemon.MultDef * lvl);
+        FinalSpeed = pokemon.BaseSpeed + BuffSpeed + (pokemon.MultSpeed * lvl);
+    }
 
     public int GetFinalHp()
     {
@@ -148,25 +147,30 @@ public class PokemonScript : MonoBehaviour
         return FinalHP;
     }
 
-    //public int GetFinalAtk()
-    //{
-    //    FinalAtk = pokemon.BaseAtk + BuffAtk + (pokemon.MultAtk * lvl);
-    //    return FinalAtk;
-    //}
+    public int GetFinalAtk()
+    {
+        FinalAtk = pokemon.BaseAtk + BuffAtk + (pokemon.MultAtk * lvl);
+        return FinalAtk;
+    }
 
-    //public int GetFinalDef()
-    //{
-    //    FinalDef = pokemon.BaseDef + BuffDef + (pokemon.MultDef * lvl);
-    //    return FinalDef;
-    //}
+    public int GetFinalDef()
+    {
+        FinalDef = pokemon.BaseDef + BuffDef + (pokemon.MultDef * lvl);
+        return FinalDef;
+    }
 
-    //public int GetFinalSpeed()
-    //{
-    //    FinalSpeed = pokemon.BaseSpeed + BuffSpeed + (pokemon.MultSpeed * lvl);
-    //    return FinalSpeed;
-    //}
+    public int GetFinalSpeed()
+    {
+        FinalSpeed = pokemon.BaseSpeed + BuffSpeed + (pokemon.MultSpeed * lvl);
+        return FinalSpeed;
+    }
 
-    public void Initiate(Pokemon pkmn, bool isPlayer, int l)
+    public Attacks GetAttack()
+    {
+        return ListAttacks[attackIndex];
+    }
+
+    public void Initiate(Pokemon pkmn, bool isPlayer, int _lvl)
     {
         pokemon = pkmn;
         isPlayerPokemon = isPlayer;
@@ -186,7 +190,7 @@ public class PokemonScript : MonoBehaviour
             transform.parent = position.transform;
             transform.position = position.transform.position;
         }
-        lvl = l; 
+        lvl = _lvl; 
     }
 
     public void Initiate(PokemonScript pkmScript)

@@ -56,6 +56,27 @@ public class BattleSceneManager : MonoBehaviour
         }
     }
 
+    public void Attack(PokemonScript Attacker, PokemonScript Defender, bool isPlayer)
+    {
+        if (isPlayer == false)
+        {
+            Attacker.attackIndex = EnemyAttackAI(Attacker, Defender);
+        }
+        Attacker.AttackCommand();
+        if (Attacker.GetAttack().isOffensive)
+        {
+            DamageCalculation(Defender, Attacker);
+        }
+        else if (Attacker.GetAttack().isBuff)
+        {
+            //
+        }
+        else if (Attacker.GetAttack().isHeal)
+        {
+            //
+        }
+    }
+
     IEnumerator E_BattleProgression()
     {
         bool isPlayerAttackingFirst;
@@ -86,27 +107,22 @@ public class BattleSceneManager : MonoBehaviour
 
         if (isPlayerAttackingFirst == true)
         {
-            Debug.Log("Player Attack");
-            PokemonSlotInBattle[0].GetComponent<PokemonSlot>().GetPokemon().AttackCommand();
+            Debug.Log("Defender Attack");
+
+            Attack(playerPokemon, enemyPokemon, true);
 
             yield return new WaitForSeconds(1);
 
-            PokemonSlotInBattle[1].GetComponent<PokemonSlot>().GetPokemon().attackIndex = EnemyAttackAI(enemyPokemon, playerPokemon); ///
-            PokemonSlotInBattle[1].GetComponent<PokemonSlot>().GetPokemon().AttackCommand();
-
-
-
+            Attack(enemyPokemon, playerPokemon, false);
         }
         else if (isPlayerAttackingFirst == false)
         {
             Debug.Log("Enemy Attack");
-            PokemonSlotInBattle[1].GetComponent<PokemonSlot>().GetPokemon().attackIndex = EnemyAttackAI(enemyPokemon, playerPokemon); ///
-            PokemonSlotInBattle[1].GetComponent<PokemonSlot>().GetPokemon().AttackCommand();
-
+            Attack(enemyPokemon, playerPokemon, false);
 
             yield return new WaitForSeconds(1);
 
-            PokemonSlotInBattle[0].GetComponent<PokemonSlot>().GetPokemon().AttackCommand();
+            Attack(playerPokemon, enemyPokemon, true);
         }
 
         yield return new WaitForSeconds(1);
@@ -197,34 +213,34 @@ public class BattleSceneManager : MonoBehaviour
         return choosenAttack;
     }
 
-    int isEffective(Attacks attack, Pokemon Player)
+    int isEffective(Attacks attack, Pokemon Defender)
     {
         int effective = 3;
         int normal = 0;
         int nonEffective = -3;
 
 
-        if (attack.Type == PokemonTypes.FIRE && Player.Type == PokemonTypes.GRASS)
+        if (attack.Type == PokemonTypes.FIRE && Defender.Type == PokemonTypes.GRASS)
         {
             return effective;
         }
-        else if (attack.Type == PokemonTypes.GRASS && Player.Type == PokemonTypes.FIRE)
+        else if (attack.Type == PokemonTypes.GRASS && Defender.Type == PokemonTypes.FIRE)
         {
             return effective;
         }
-        else if (attack.Type == PokemonTypes.WATER && Player.Type == PokemonTypes.FIRE)
+        else if (attack.Type == PokemonTypes.WATER && Defender.Type == PokemonTypes.FIRE)
         {
             return effective;
         }
-        else if (attack.Type == PokemonTypes.FIRE && Player.Type == PokemonTypes.WATER)
+        else if (attack.Type == PokemonTypes.FIRE && Defender.Type == PokemonTypes.WATER)
         {
             return nonEffective;
         }
-        else if (attack.Type == PokemonTypes.GRASS && Player.Type == PokemonTypes.FIRE)
+        else if (attack.Type == PokemonTypes.GRASS && Defender.Type == PokemonTypes.FIRE)
         {
             return nonEffective;
         }
-        else if (attack.Type == PokemonTypes.WATER && Player.Type == PokemonTypes.GRASS)
+        else if (attack.Type == PokemonTypes.WATER && Defender.Type == PokemonTypes.GRASS)
         {
             return nonEffective;
         }
@@ -233,4 +249,53 @@ public class BattleSceneManager : MonoBehaviour
             return normal;
         }
     }
+
+    float isEffectiveMultiplier(Attacks attack, Pokemon Defender)
+    {
+        float effective = 2;
+        float normal = 1;
+        float nonEffective = 0.5f;
+
+
+        if (attack.Type == PokemonTypes.FIRE && Defender.Type == PokemonTypes.GRASS)
+        {
+            return effective;
+        }
+        else if (attack.Type == PokemonTypes.GRASS && Defender.Type == PokemonTypes.FIRE)
+        {
+            return effective;
+        }
+        else if (attack.Type == PokemonTypes.WATER && Defender.Type == PokemonTypes.FIRE)
+        {
+            return effective;
+        }
+        else if (attack.Type == PokemonTypes.FIRE && Defender.Type == PokemonTypes.WATER)
+        {
+            return nonEffective;
+        }
+        else if (attack.Type == PokemonTypes.GRASS && Defender.Type == PokemonTypes.FIRE)
+        {
+            return nonEffective;
+        }
+        else if (attack.Type == PokemonTypes.WATER && Defender.Type == PokemonTypes.GRASS)
+        {
+            return nonEffective;
+        }
+        else
+        {
+            return normal;
+        }
+    }
+
+    private void DamageCalculation(PokemonScript Defender, PokemonScript Attacker)
+    {
+
+        float Damage = ((2* Attacker.GetFinalAtk()) / 5 + 2 ) * Attacker.GetAttack().Damage * Attacker.GetFinalAtk() / Defender.GetFinalDef();
+        Damage = Damage / 50 + 2;
+        Damage = Damage * isEffectiveMultiplier(Attacker.GetAttack(), Defender.pokemon);
+        int finalDamage = (int)Damage;
+
+        Defender.currentHP -= finalDamage;
+    }
+
 }

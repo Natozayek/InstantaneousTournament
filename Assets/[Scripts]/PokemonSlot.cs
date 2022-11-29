@@ -9,6 +9,7 @@ public class PokemonSlot : MonoBehaviour
     public PokemonScript pokemon;
 
     public GameObject TestPokemon;
+    public StatsScreen stats;
 
     private void Start()
     {
@@ -16,6 +17,14 @@ public class PokemonSlot : MonoBehaviour
         //{
         //    AddPokemonToSlot(TestPokemon);
         //}
+    }
+
+    public void Update()
+    {
+        if (pokemon != null)
+        {
+            stats.StatsUpdate(pokemon.PokemonName, pokemon.lvl, pokemon.FinalHP, pokemon.currentHP);
+        }
     }
 
     public void AddPokemonToSlot(GameObject poke)
@@ -31,6 +40,7 @@ public class PokemonSlot : MonoBehaviour
         PokemonObject = poke;
         PokemonObject.transform.parent = transform;
         pokemon = PokemonObject.GetComponent<PokemonScript>();
+        stats.StatsUpdate(pokemon.PokemonName, pokemon.lvl, pokemon.FinalHP, pokemon.currentHP);
     }
 
     public PokemonScript GetPokemon()

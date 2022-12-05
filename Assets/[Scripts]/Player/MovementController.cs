@@ -72,7 +72,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public bool canMove;
     public AudioManager audioManager;
     public PokemonInventory pokemonInventory;
-    //public GameObject PlayerMenu;
+    public int pokeballsOwned = 6;
     #endregion
 
 
@@ -301,10 +301,15 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public void Flee() ////TEST
     {
+        audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
+        BattleEnds();
+    }
+
+    public void BattleEnds()
+    {
         battleS.GetComponent<BattleSceneManager>().ReturnPokemon().transform.parent = pokemonInventory.transform;
         battleS.GetComponent<BattleSceneManager>().PokemonPlayerFleeSupport();
         battleS.gameObject.SetActive(false);
-        audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
         canMove = true;
     }
 

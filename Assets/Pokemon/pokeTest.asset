@@ -27,3 +27,5 @@ MonoBehaviour:
   MultDef: 1
   MultSpeed: 2
   Type: 2
+  ExpWorth: 60
+  CatchRate: 235

@@ -9,8 +9,12 @@ public class BattleSceneManager : MonoBehaviour
     public List<GameObject> PokemonSlotInBattle;
     public GameObject MainBattleMenu;
     public GameObject AttackBattleMenu;
+    public MovementController playerGameObject;
+
+    public PokemonInventory _pokemonInventory;
 
     public bool InBattleProgresion = false;
+    bool battleEnds = false;
 
 
     //public Button AttackButton;
@@ -18,7 +22,8 @@ public class BattleSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _pokemonInventory = GameObject.FindObjectOfType<PokemonInventory>();
+        playerGameObject = GameObject.FindObjectOfType<MovementController>();
     }
 
     // Update is called once per frame
@@ -53,6 +58,39 @@ public class BattleSceneManager : MonoBehaviour
         {
             InBattleProgresion = true;
             StartCoroutine(E_BattleProgression());
+        }
+    }
+
+    public void CaptureProgression()
+    {
+        if(_pokemonInventory.HasPokeballs() && _pokemonInventory.CanCapture() == true)
+        {
+            if (InBattleProgresion == false)
+            {
+                PokemonScript enemyPokemon = PokemonSlotInBattle[1].GetComponent<PokemonSlot>().GetPokemon();
+                InBattleProgresion = true;
+                _pokemonInventory.UsePokeBall();
+                StartCoroutine(CaptureAttempt(enemyPokemon));
+            }
+        }
+
+    }
+
+    bool Capture(PokemonScript wildPokemon)
+    {
+        float captureChance = (((1 + ((float)wildPokemon.FinalHP * 3 - (float)wildPokemon.currentHP * 2) * (float)wildPokemon.pokemon.CatchRate ) / ((float)wildPokemon.FinalHP * 3)) / 256) * 100;
+        int finalCapturePercent = (int)captureChance;
+
+        int chances = Random.Range(1, 101);
+
+        Debug.Log("CAPTURE CHANCES = " + finalCapturePercent);
+        if(finalCapturePercent > chances)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -111,24 +149,49 @@ public class BattleSceneManager : MonoBehaviour
 
             Attack(playerPokemon, enemyPokemon, true);
 
-            yield return new WaitForSeconds(1);
+            if (enemyPokemon.currentHP < 0)
+            {
+                //Check if it is a Trainer Battle
+                StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+            }
+            else
+            {
+                yield return new WaitForSeconds(1);
+                Attack(enemyPokemon, playerPokemon, false);
+            }
 
-            Attack(enemyPokemon, playerPokemon, false);
         }
         else if (isPlayerAttackingFirst == false)
         {
             Debug.Log("Enemy Attack");
             Attack(enemyPokemon, playerPokemon, false);
 
-            yield return new WaitForSeconds(1);
-
-            Attack(playerPokemon, enemyPokemon, true);
+            if (playerPokemon.currentHP < 0)
+            {
+                //Check if it is a Trainer Battle
+                //endBattle
+                if (_pokemonInventory.GetPokemonsAlive() == 0)
+                {
+                    //wiped
+                }
+                else
+                {
+                    //Force to change; 
+                }
+            }
+            else
+            {
+                yield return new WaitForSeconds(1);
+                Attack(playerPokemon, enemyPokemon, true);
+            }    
         }
 
-        yield return new WaitForSeconds(1);
-
-        ToMainMenu();
-        InBattleProgresion = false;
+        if (battleEnds == false)
+        {
+            yield return new WaitForSeconds(1);
+            ToMainMenu();
+            InBattleProgresion = false;
+        }
     }
 
     int EnemyAttackAI(PokemonScript Enemy, PokemonScript Player)
@@ -308,4 +371,59 @@ public class BattleSceneManager : MonoBehaviour
         PokemonSlotInBattle[0].GetComponent<PokemonSlot>().PlayerFleeSupport();
     }
 
+    IEnumerator WildBattleTermination(PokemonScript player, PokemonScript wildPokemon)
+    {
+        battleEnds = true;
+
+        yield return new WaitForSeconds(2);
+
+
+        int expGain = (wildPokemon.pokemon.ExpWorth * wildPokemon.lvl) / 7;
+        player.currentXP += expGain;
+        Debug.Log(expGain);
+        ToMainMenu();
+        battleEnds = false;
+        InBattleProgresion = false;
+        playerGameObject.BattleEnds();
+        StopAllCoroutines();
+    }
+
+    IEnumerator CaptureAttempt(PokemonScript wildPokemon)
+    {
+        yield return new WaitForSeconds(2);
+
+        bool captured = Capture(wildPokemon);
+
+        if (captured == true)
+        {
+            _pokemonInventory.AddCapturedPokemon(wildPokemon.gameObject);
+            ToMainMenu();
+            battleEnds = false;
+            InBattleProgresion = false;
+            playerGameObject.BattleEnds();
+            StopAllCoroutines();
+        }
+        else
+        {
+            PokemonScript playerPokemon = PokemonSlotInBattle[0].GetComponent<PokemonSlot>().GetPokemon();
+            Debug.Log("Enemy Attack");
+            Attack(wildPokemon, playerPokemon, false);
+
+            if (playerPokemon.currentHP < 0)
+            {
+                //Check if it is a Trainer Battle
+                //endBattle
+                if (_pokemonInventory.GetPokemonsAlive() == 0)
+                {
+                    //wiped
+                }
+                else
+                {
+                    //Force to change; 
+                }
+            }
+
+            InBattleProgresion = false;
+        }
+    }
 }

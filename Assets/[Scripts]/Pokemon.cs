@@ -28,56 +28,9 @@ public class Pokemon : ScriptableObject
     public int MultDef;
     public int MultSpeed;
 
-    //[Header("StatsFinal")]
-    //public int FinalHP;
-    //public int FinalAtk;
-    //public int FinalDef;
-    //public int FinalSpeed;
-
-    //[Header("StatsBuff")]
-    //public int BuffAtk;
-    //public int BuffDef;
-    //public int BuffSpeed;
-
     [Header("StatsOthers")]
-    //public int lvl = 1;
-    //public int currentHP;
     public PokemonTypes Type;
-
-    //public void SetHPToMax()
-    //{
-    //    currentHP = GetFinalHp();
-    //}
-    //public void UpdatePokemonStats()
-    //{
-    //    FinalHP = BaseHP+ (MultHP * lvl);
-    //    FinalAtk = BaseAtk + BuffAtk + (MultAtk * lvl);
-    //    FinalDef = BaseDef + BuffDef + (MultDef * lvl);
-    //    FinalSpeed = BaseSpeed + BuffSpeed + (MultSpeed * lvl);
-    //}
-
-    //public int GetFinalHp()
-    //{
-    //    FinalHP = BaseHP + (MultHP * lvl);
-    //    return FinalHP;
-    //}
-
-    //public int GetFinalAtk()
-    //{
-    //    FinalAtk = BaseAtk + BuffAtk + (MultAtk * lvl);
-    //    return FinalAtk;
-    //}
-
-    //public int GetFinalDef()
-    //{
-    //    FinalDef = BaseDef + BuffDef + (MultDef * lvl);
-    //    return FinalDef;
-    //}
-
-    //public int GetFinalSpeed()
-    //{
-    //    FinalSpeed = BaseSpeed + BuffSpeed + (MultSpeed * lvl);
-    //    return FinalSpeed;
-    //}
+    public int ExpWorth;
+    public int CatchRate;
 
 }

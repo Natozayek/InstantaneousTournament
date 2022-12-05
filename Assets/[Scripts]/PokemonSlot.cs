@@ -8,15 +8,10 @@ public class PokemonSlot : MonoBehaviour
     public GameObject PokemonObject;
     public PokemonScript pokemon;
 
-    public GameObject TestPokemon;
     public StatsScreen stats;
 
     private void Start()
     {
-        //if (TestPokemon != null)
-        //{
-        //    AddPokemonToSlot(TestPokemon);
-        //}
     }
 
     public void Update()

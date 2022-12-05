@@ -8,23 +8,54 @@ public class PokemonInventory : MonoBehaviour
 
     int maxPokemom = 3;
 
+    public GameObject playerMenu;
+
     public List<GameObject> PokemonInventoryList;
+    public List<PokemonInventorySlot> PokemonInventoryListMenu;
+
     public GameObject SelectedPokemon;
     public int pokemonIndex = 0;
     public BattleSceneManager battleSceneManager;
+    public bool inMenu;
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerPokemonSlot = GameObject.Find("PlayerPokemon").GetComponent<PokemonSlot>();
         battleSceneManager = GameObject.FindObjectOfType<BattleSceneManager>();
-        //SelectedPokemon = PokemonInventoryList[0];
+
     }
 
     // Update is called once per frame
     void Update()
     {
         SelectedPokemon = PokemonInventoryList[pokemonIndex];
+        if(playerMenu.active == true)
+        {
+            UpdatePokemonSlotMenu();
+        }
+
+        inMenu = playerMenu.active;
+    }
+
+    public void TooglePlayerMenu()
+    {
+        if (inMenu == true)
+        {
+            playerMenu.SetActive(false);
+        }
+        else
+        {
+            playerMenu.SetActive(true);
+        }
+    }
+
+    public void UpdatePokemonSlotMenu()
+    {
+        for (int i = 0; i < PokemonInventoryList.Count; i++)
+        {
+            PokemonInventoryListMenu[i].SetPokemon(PokemonInventoryList[i]);
+        }
     }
 
     public void ChoosePokemon()

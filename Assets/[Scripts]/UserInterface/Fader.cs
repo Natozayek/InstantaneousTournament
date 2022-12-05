@@ -35,6 +35,11 @@ public class Fader : MonoBehaviour
         animator.SetTrigger("FadeIn");
     }
 
+    public void fadeInBattle()
+    {
+        animator.SetTrigger("FadeInBattle");
+    }
+
     public IEnumerator ResetAnim()
     {
         yield return new WaitForSeconds(0.1f);

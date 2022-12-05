@@ -62,16 +62,17 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public GameObject rightBox;
     InteractSquare RightCollider;
 
-    public bool canMove = false;
+    public bool canMoveToPosition = false;
 
     //To enter battle screen
     public GameObject battleS;
 
     public Bush selectedBush;
 
-    public bool inBattle = false;
+    public bool canMove;
     public AudioManager audioManager;
     public PokemonInventory pokemonInventory;
+    //public GameObject PlayerMenu;
     #endregion
 
 
@@ -106,19 +107,40 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         audioManager = GameObject.FindObjectOfType<AudioManager>();
 
         speedValue = speed;
+        canMove = true;
       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (inBattle == true)
+
+        if (canMove == false)
         {
             speed = 0;
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                if (pokemonInventory.inMenu == true)
+                {
+                    canMove = true;
+                    pokemonInventory.TooglePlayerMenu();
+                }
+            }
         }
         else
         {
             speed = speedValue;
+
+            if(Input.GetKeyDown(KeyCode.X))
+            {
+                if (pokemonInventory.inMenu == false)
+                {
+                    canMove = false;
+                    pokemonInventory.TooglePlayerMenu();
+                }
+            }
+
 
             if (battleS.gameObject.activeSelf == false) // to avoid movement while fighting
             {
@@ -144,11 +166,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
                         interactBox = upBox;
                         if (UpCollider.isObstacle == false)
                         {
-                            canMove = true;
+                            canMoveToPosition = true;
                         }
                         else
                         {
-                            canMove = false;
+                            canMoveToPosition = false;
                         }
                     }
                     else if (movement.y == -1) // Down
@@ -157,11 +179,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
                         interactBox = downBox;
                         if (DownCollider.isObstacle == false)
                         {
-                            canMove = true;
+                            canMoveToPosition = true;
                         }
                         else
                         {
-                            canMove = false;
+                            canMoveToPosition = false;
                         }
                     }
                     else if (movement.x == -1) // Left
@@ -170,11 +192,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
                         interactBox = leftBox;
                         if (LeftCollider.isObstacle == false)
                         {
-                            canMove = true;
+                            canMoveToPosition = true;
                         }
                         else
                         {
-                            canMove = false;
+                            canMoveToPosition = false;
                         }
                     }
                     else if (movement.x == 1) //Right
@@ -183,11 +205,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
                         interactBox = rightBox;
                         if (RightCollider.isObstacle == false)
                         {
-                            canMove = true;
+                            canMoveToPosition = true;
                         }
                         else
                         {
-                            canMove = false;
+                            canMoveToPosition = false;
                         }
                     }
                     else//No Movement
@@ -196,7 +218,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
                     }
 
                     //Start Movement
-                    if (canMove == true)
+                    if (canMoveToPosition == true)
                     {
                         if (movement != Vector2.zero)
                         {
@@ -204,7 +226,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
                             targetPos.x += movement.x; //Add either 1 or -1 to X which is the tile on top or down
                             targetPos.y += movement.y; //Same but with Y either left or right
 
-                            if (inBattle == false)
+                            if (canMove == true)
                             {
                                 StartCoroutine(Move(targetPos)); //Start Move Coroutine for tile base movement
                             }
@@ -242,7 +264,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
         //Will move towards the new position until the diference in distance is
         //less than Epsilon (The smallest value that a float can have different from zero.)
-        if(inBattle == false)
+        if(canMove == true)
         {
             while ((tPos - transform.position).sqrMagnitude > Mathf.Epsilon)
             {
@@ -250,12 +272,6 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
                 yield return null;
             }
         }
-
-        //while ((tPos - transform.position).sqrMagnitude > Mathf.Epsilon)
-        //{
-        //    transform.position = Vector3.MoveTowards(transform.position, tPos, speed * Time.deltaTime);
-        //    yield return null;
-        //}
 
         //Once it reaches now that is the new position for the character
         transform.position = tPos;
@@ -278,8 +294,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public void ToBattle()
     {
-        inBattle = true;
-        fader.fadeIn();
+        canMove = false;
+        fader.fadeInBattle();
         StartCoroutine(GoToBattle());
     }
 
@@ -289,7 +305,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         battleS.GetComponent<BattleSceneManager>().PokemonPlayerFleeSupport();
         battleS.gameObject.SetActive(false);
         audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
-        inBattle = false;
+        canMove = true;
     }
 
     public void GoToCave()

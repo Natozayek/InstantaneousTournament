@@ -31,6 +31,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public Fader fader;
 
+    private ParticleSystem ps;
+
     
 
     #region Asper work 
@@ -319,7 +321,12 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToCaveCoro());
     }
+    public void GoToCaveToWoods()
+    {
 
+        fader.fadeIn();
+        fader.StartCoroutine(fader.GoToCaveWoodsCoro());
+    }
     public void GoToTown()
     {
 
@@ -336,6 +343,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if (other.CompareTag("CaveExit"))
         {
             GoToTown();
+        }
+
+        if (other.CompareTag("CaveToWoods"))
+        {
+            GoToCaveToWoods();
         }
     }
 

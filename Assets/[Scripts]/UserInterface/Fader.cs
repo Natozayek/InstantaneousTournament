@@ -59,6 +59,13 @@ public class Fader : MonoBehaviour
 
     }
 
+    public IEnumerator GoToCaveWoodsCoro()
+    {
+        yield return new WaitForSeconds(0.8f);
+        SceneManager.LoadScene("CaveToWoods");
+
+    }
+
     //public IEnumerator GoToBattle(GameObject BattleScene)
     //{
     //    yield return new WaitForSeconds(0.4f);

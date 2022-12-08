@@ -327,11 +327,23 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToCaveWoodsCoro());
     }
+    public void GoToWoods()
+    {
+
+        fader.fadeIn();
+        fader.StartCoroutine(fader.GoToWoodsCoro());
+    }
     public void GoToTown()
     {
 
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToTownCoro());
+    }
+    public void GoToColiseo()
+    {
+
+        fader.fadeIn();
+        fader.StartCoroutine(fader.GoToColiseoCoro());
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -349,6 +361,20 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         {
             GoToCaveToWoods();
         }
+        if (other.CompareTag("WoodsEntrance"))
+        {
+            GoToWoods();
+        }
+        if (other.CompareTag("WoodsExit"))
+        {
+            GoToWoods();
+        }
+
+        if (other.CompareTag("ColliseoEntrance"))
+        {
+            GoToColiseo();
+        }
+        
     }
 
     void OnTriggerStay2D(Collider2D other)

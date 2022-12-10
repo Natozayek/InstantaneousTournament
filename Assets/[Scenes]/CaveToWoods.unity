@@ -986,7 +986,7 @@ PrefabInstance:
     - target: {fileID: 958704285051708179, guid: d13bc99be30d6f543880a692b2ddebf2, type: 3}
       propertyPath: battleS
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1080233764}
     - target: {fileID: 958704285051708179, guid: d13bc99be30d6f543880a692b2ddebf2, type: 3}
       propertyPath: audioManager
       value: 
@@ -1290,19 +1290,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 527742282340980935, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 527742282340980935, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 527742282859399180, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 527742282859399180, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4063450015719022145, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
       propertyPath: m_Pivot.x
@@ -1392,6 +1392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleScreen 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4063450015719022157, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4063450015879159706, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1404,7 +1408,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4063450015719022150, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
   m_PrefabInstance: {fileID: 660648742}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1080233764}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a52868a8eab6b9440bd693ec1e30d220, type: 3}
@@ -1686,6 +1690,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798e2290d6c07814cb2ebacd6b14495e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1080233764 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4063450015719022157, guid: 9cb9aa3745105d547b4ca527316e8db8, type: 3}
+  m_PrefabInstance: {fileID: 660648742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1410605780
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,14 +18,14 @@ MonoBehaviour:
   attack1: {fileID: 11400000, guid: 91d5d3c77066d984ba425b7b5a1edf9d, type: 2}
   attack2: {fileID: 11400000, guid: 2919801ffe0fbde4699db6d5de1b7ec1, type: 2}
   attack3: {fileID: 11400000, guid: 76c1cd1c8304da448bfe31e9ab29fce2, type: 2}
-  BaseHP: 10
-  BaseAtk: 0
-  BaseDef: 0
-  BaseSpeed: 10
-  MultHP: 2
-  MultAtk: 1
-  MultDef: 1
-  MultSpeed: 2
+  BaseHP: 45
+  BaseAtk: 49
+  BaseDef: 49
+  BaseSpeed: 30
+  MultHP: 3
+  MultAtk: 2
+  MultDef: 3
+  MultSpeed: 1
   Type: 2
-  ExpWorth: 60
-  CatchRate: 235
+  ExpWorth: 72
+  CatchRate: 185

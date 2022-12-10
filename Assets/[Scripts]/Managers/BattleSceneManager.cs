@@ -6,7 +6,10 @@ using UnityEngine.UI;
 
 public class BattleSceneManager : MonoBehaviour
 {
+    public static BattleSceneManager Instance { get; private set; }
+
     public List<GameObject> PokemonSlotInBattle;
+    public GameObject BattleMenuScreen;
     public GameObject MainBattleMenu;
     public GameObject AttackBattleMenu;
     public MovementController playerGameObject;
@@ -16,20 +19,46 @@ public class BattleSceneManager : MonoBehaviour
     public bool InBattleProgresion = false;
     bool battleEnds = false;
 
-
     //public Button AttackButton;
+
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         _pokemonInventory = GameObject.FindObjectOfType<PokemonInventory>();
         playerGameObject = GameObject.FindObjectOfType<MovementController>();
+        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void ToogleBattleMenu()
+    {
+        if(BattleMenuScreen.activeInHierarchy == true)
+        {
+            BattleMenuScreen.gameObject.SetActive(false);
+        }
+        else
+        {
+            BattleMenuScreen.gameObject.SetActive(true);
+        }
     }
 
     public void ToAttackMenu()

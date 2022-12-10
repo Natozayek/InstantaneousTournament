@@ -22,8 +22,11 @@ public class Bush : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player = GameObject.FindWithTag("Player");
         //Getting the Script
         PlayerController = Player.GetComponent<MovementController>();
+        battleSceneManager = FindObjectOfType<BattleSceneManager>();
+
     }
 
     // Update is called once per frame

@@ -21,7 +21,6 @@ public class StatsScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void StatsUpdate(string pokemonName, int pokemonLVL, int pokemonMaxHp, int pokemonCurrentHP)
@@ -29,7 +28,15 @@ public class StatsScreen : MonoBehaviour
         TextName.text = pokemonName;
         TextLvl.text = pokemonLVL.ToString();
         TextHpMax.text = pokemonMaxHp.ToString();
-        TextHpCurrent.text = pokemonCurrentHP.ToString();
+        if(pokemonCurrentHP < 0)
+        {
+            TextHpCurrent.text = "0";
+        }
+        else
+        {
+            TextHpCurrent.text = pokemonCurrentHP.ToString();
+        }
+
 
         HpBar.maxValue = pokemonMaxHp;
         HpBar.value = pokemonCurrentHP;

@@ -50,32 +50,32 @@ public class Fader : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene("Cave");
-
+        fadeOut();
     }
     public IEnumerator GoToTownCoro()
     {
         yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene("MainScene1");
-
+        fadeOut();
     }
 
     public IEnumerator GoToCaveWoodsCoro()
     {
         yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene("CaveToWoods");
-
+        fadeOut();
     }
     public IEnumerator GoToWoodsCoro()
     {
         yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene("Woods");
-
+        fadeOut();
     }
     public IEnumerator GoToColiseoCoro()
     {
         yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene("Coliseo");
-
+        fadeOut();  
     }
 
     //public IEnumerator GoToBattle(GameObject BattleScene)

@@ -8,6 +8,8 @@ using static UnityEditor.PlayerSettings;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovementController : MonoBehaviour, IDataPersistence//IDataPersistance needed for saving
 {
+    public static MovementController Instance { get; private set; }
+
     public Rigidbody2D rigidbody;
    // private new SpriteRenderer spriteRenderer;
     private Vector2 direction = Vector2.down;
@@ -75,6 +77,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public AudioManager audioManager;
     public PokemonInventory pokemonInventory;
     public int pokeballsOwned = 6;
+    public PositionChangeEnum positionChange = PositionChangeEnum.NONE;
     #endregion
 
 
@@ -82,6 +85,15 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     {
        rigidbody = GetComponent<Rigidbody2D>();
        activeAnimation =  spriteAnimDown;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     #region //Save data for location
@@ -144,7 +156,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             }
 
 
-            if (battleS.gameObject.activeSelf == false) // to avoid movement while fighting
+            if (battleS.GetComponent<BattleSceneManager>().BattleMenuScreen.gameObject.activeSelf == false) // to avoid movement while fighting
             {
                 if (!isMoving)
                 {
@@ -311,37 +323,44 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     {
         battleS.GetComponent<BattleSceneManager>().ReturnPokemon().transform.parent = pokemonInventory.transform;
         battleS.GetComponent<BattleSceneManager>().PokemonPlayerFleeSupport();
-        battleS.gameObject.SetActive(false);
+        battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
+        //battleS.gameObject.SetActive(false);
         canMove = true;
     }
 
     public void GoToCave()
     {
-        
+        canMove = false;
+        StopAllCoroutines();
+        isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToCaveCoro());
     }
     public void GoToCaveToWoods()
     {
-
+        canMove = false;
+        StopAllCoroutines();
+        isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToCaveWoodsCoro());
     }
     public void GoToWoods()
     {
-
+        canMove = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToWoodsCoro());
     }
     public void GoToTown()
     {
-
+        canMove = false;
+        StopAllCoroutines();
+        isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToTownCoro());
     }
     public void GoToColiseo()
     {
-
+        canMove = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToColiseoCoro());
     }
@@ -350,6 +369,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if (other.CompareTag("CaveNtrance"))
         {
             GoToCave();
+            positionChange = PositionChangeEnum.MAINTOCAVE;
         }
 
         if (other.CompareTag("CaveExit"))
@@ -395,10 +415,13 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public IEnumerator GoToBattle()
     {
         yield return new WaitForSeconds(0.4f);
-        battleS.gameObject.SetActive(true);
+        battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
+        //battleS.gameObject.SetActive(true); //
         audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
         pokemonInventory.ChoosePokemon();
         selectedBush.Encounter();
         fader.fadeOut();
     }
+
+    
 }

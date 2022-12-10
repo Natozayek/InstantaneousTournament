@@ -25,8 +25,8 @@ public class PokemonInventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPokemonSlot = GameObject.Find("PlayerPokemon").GetComponent<PokemonSlot>();
-        battleSceneManager = GameObject.FindObjectOfType<BattleSceneManager>();
+        //PlayerPokemonSlot = GameObject.Find("PlayerPokemon").GetComponent<PokemonSlot>();
+        //battleSceneManager = GameObject.FindObjectOfType<BattleSceneManager>();
     }
 
     // Update is called once per frame

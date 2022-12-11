@@ -30,6 +30,7 @@ public class PokemonScript : MonoBehaviour
     public int lvl = 1;
     public int currentHP;
     public int currentXP;
+    public int XpForNextLevel;
 
     [Header("AttackRelated")]
     public List<int> CurrentPP;
@@ -55,6 +56,11 @@ public class PokemonScript : MonoBehaviour
     void Update()
     {
         PokemonAnimations.SetBool("isPlayerPokemon", isPlayerPokemon);
+
+        if(currentXP > XpForNextLevel)
+        {
+            LvlUp();
+        }
 
         if(battleSceneManager == null)
         {
@@ -217,8 +223,22 @@ public class PokemonScript : MonoBehaviour
             position = GameObject.Find("EnemyPokemon");
             transform.parent = position.transform;
             transform.position = position.transform.position;
+            SetXpNeeded();
         }
         lvl = pkmScript.lvl;
+    }
+
+    public void SetXpNeeded()
+    {
+        XpForNextLevel = 100 + (lvl * 40); 
+    }
+
+    public void LvlUp()
+    {
+        int extraXp = currentXP - XpForNextLevel;
+        lvl++;
+        SetXpNeeded();
+        currentXP = extraXp;
     }
 
 }

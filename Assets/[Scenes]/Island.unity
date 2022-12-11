@@ -811,7 +811,7 @@ GameObject:
   - component: {fileID: 195198604}
   m_Layer: 6
   m_Name: WoodsExit
-  m_TagString: WoodsExit
+  m_TagString: IslandExit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -824,7 +824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195198602}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.14, y: -22.75, z: 0}
+  m_LocalPosition: {x: -4.5, y: -21.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -844,7 +844,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.17528796, y: -0.19281673}
+  m_Offset: {x: 0.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -855,7 +855,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7011523, y: 0.61436653}
+  m_Size: {x: 2, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &357370115
 GameObject:
@@ -869,10 +869,9 @@ GameObject:
   - component: {fileID: 357370120}
   - component: {fileID: 357370119}
   - component: {fileID: 357370118}
-  - component: {fileID: 357370117}
   m_Layer: 8
   m_Name: Bush
-  m_TagString: Bush
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -892,27 +891,6 @@ Transform:
   m_Father: {fileID: 1483968698}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &357370117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357370115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96f548159f34d604798d2cd472b19c92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  PokemonPrefab: {fileID: 630140236333748738, guid: 08ddc032762aa3e4aab9acc8517dc4ea, type: 3}
-  CurrentMaxLVL: 0
-  CurrentMinLVL: 0
-  PokemonListFromBush:
-  - {fileID: 11400000, guid: 1baa602093c4a3540a87f91b2387057e, type: 2}
-  PokemonListFromBushChancesOfAppearing: 64000000
-  pokemonListFinal: []
-  battleSceneManager: {fileID: 0}
 --- !u!19719996 &357370118
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -38590,3 +38568,85 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!4 &4312674725456694586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4312674725456694589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.5, y: -19.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4312674725627731862}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4312674725456694589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4312674725456694586}
+  m_Layer: 0
+  m_Name: CityToIsland
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &4312674725627731849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4312674725627731862}
+  - component: {fileID: 4312674725627731863}
+  m_Layer: 0
+  m_Name: playerPositionAdjust
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4312674725627731862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4312674725627731849}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4312674725456694586}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4312674725627731863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4312674725627731849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bb0d15679a4184fb20a2230514d3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  l_Positions:
+  - {fileID: 4312674725456694589}
+  positionListIndex: -1
+  player: {fileID: 0}
+  positionChange: 0
+  positionChanged: 0

@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/[Scenes]/Coliseo.unity
     guid: ab9ec7bb8bdba954c99e58ecc42256d0
+  - enabled: 1
+    path: Assets/[Scenes]/Island.unity
+    guid: 215ac943ecca5884d90d3ba4e1048a0a
   m_configObjects: {}

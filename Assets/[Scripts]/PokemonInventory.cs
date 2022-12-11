@@ -110,6 +110,15 @@ public class PokemonInventory : MonoBehaviour
         }
     }
 
+    public void HealAllPokemon()
+    {
+        for (int i = 0; i < PokemonInventoryList.Count; i++)
+        {
+            PokemonInventoryList[i].GetComponent<PokemonScript>().SetHPToMax();
+            PokemonInventoryList[i].GetComponent<PokemonScript>().SetPPToMax();
+        }
+    }
+
     public void ChoosePokemon()
     {
         battleSceneManager.PokemonSlotInBattle[0].GetComponent<PokemonSlot>().AddPokemonToSlot(SelectedPokemon);

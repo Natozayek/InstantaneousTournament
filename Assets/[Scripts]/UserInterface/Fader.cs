@@ -77,6 +77,12 @@ public class Fader : MonoBehaviour
         SceneManager.LoadScene("Coliseo");
         fadeOut();  
     }
+    public IEnumerator GoToIslandCoro()
+    {
+        yield return new WaitForSeconds(0.8f);
+        SceneManager.LoadScene("Island");
+        fadeOut();
+    }
 
     //public IEnumerator GoToBattle(GameObject BattleScene)
     //{

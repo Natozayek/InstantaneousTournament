@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PokemonInventorySlot : MonoBehaviour
 {
     public GameObject PokemonObject;
-    PokemonScript PokemonData;
+    public PokemonScript PokemonData;
     public Slider HpBar;
 
     public TMP_Text TextName;

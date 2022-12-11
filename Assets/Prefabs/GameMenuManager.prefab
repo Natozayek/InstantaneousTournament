@@ -749,8 +749,8 @@ RectTransform:
   m_LocalScale: {x: 19.2, y: 7.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 594794038738109578}
   - {fileID: 594794037896676270}
+  - {fileID: 594794038738109578}
   - {fileID: 594794038481742309}
   m_Father: {fileID: 594794037768492975}
   m_RootOrder: -1
@@ -4258,7 +4258,7 @@ Transform:
   m_Children:
   - {fileID: 594794037768492975}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3996819923735178248
 MonoBehaviour:
@@ -4281,6 +4281,7 @@ MonoBehaviour:
   playerGameObject: {fileID: 0}
   _pokemonInventory: {fileID: 0}
   InBattleProgresion: 0
+  hasToChangePokemon: 0
 --- !u!1 &3996819923899422226
 GameObject:
   m_ObjectHideFlags: 0

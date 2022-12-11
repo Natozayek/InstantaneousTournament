@@ -41,7 +41,6 @@ public class BattleSceneManager : MonoBehaviour
     {
         _pokemonInventory = GameObject.FindObjectOfType<PokemonInventory>();
         playerGameObject = GameObject.FindObjectOfType<MovementController>();
-        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -161,11 +160,11 @@ public class BattleSceneManager : MonoBehaviour
         }
         else if (Attacker.GetAttack().isBuff)
         {
-            //
+            Buff(Attacker);
         }
         else if (Attacker.GetAttack().isHeal)
         {
-            //
+            Heal(Attacker);
         }
     }
 
@@ -260,7 +259,6 @@ public class BattleSceneManager : MonoBehaviour
         if (battleEnds == false)
         {
             yield return new WaitForSeconds(1);
-            //ToMainMenu();
             InBattleProgresion = false;
         }
     }
@@ -430,6 +428,36 @@ public class BattleSceneManager : MonoBehaviour
         int finalDamage = (int)Damage;
 
         Defender.currentHP -= finalDamage;
+    }
+
+    private void Buff(PokemonScript user)
+    {
+        int buff = user.GetAttack().Damage;
+
+        switch (user.GetAttack().buffType)
+        {
+            case BuffType.NONE:
+                break;
+            case BuffType.BuffAtk:
+                user.BuffAtk += buff;
+                break;
+            case BuffType.BuffDef:
+                user.BuffDef += buff;
+                break;
+            case BuffType.BuffSpeed:
+                user.BuffSpeed += buff;
+                break;
+        }
+        user.UpdatePokemonStats();
+    }
+
+    private void Heal(PokemonScript user)
+    {
+        user.currentHP += user.GetAttack().Damage;
+        if(user.currentHP >= user.FinalHP)
+        {
+            user.currentHP = user.FinalHP;
+        }
     }
 
     public GameObject ReturnPokemon()

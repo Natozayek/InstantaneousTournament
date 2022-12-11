@@ -350,6 +350,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public void GoToWoods()
     {
         canMove = false;
+        StopAllCoroutines();
+        isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToWoodsCoro());
     }
@@ -364,6 +366,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public void GoToColiseo()
     {
         canMove = false;
+        StopAllCoroutines();
+        isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToColiseoCoro());
     }
@@ -378,26 +382,55 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if (other.CompareTag("CaveExit"))
         {
             GoToTown();
+            positionChange = PositionChangeEnum.CAVETOMAIN;
         }
 
         if (other.CompareTag("CaveToWoods"))
         {
             GoToCaveToWoods();
+            positionChange = PositionChangeEnum.MAINTOCAVE2;
         }
         if (other.CompareTag("WoodsEntrance"))
         {
             GoToWoods();
+            positionChange = PositionChangeEnum.CAVE2TOFOREST;
         }
         if (other.CompareTag("WoodsExit"))
         {
-            GoToWoods();
+            GoToCaveToWoods();
+            positionChange = PositionChangeEnum.FORESTTOCAVE2;
         }
 
         if (other.CompareTag("ColliseoEntrance"))
         {
             GoToColiseo();
+            positionChange = PositionChangeEnum.MAINTOCOLISEUM;
         }
-        
+
+        if (other.CompareTag("ColliseoExit"))
+        {
+            GoToTown();
+            positionChange = PositionChangeEnum.COLISEUMTOMAIN;
+        }
+
+        if (other.CompareTag("Cave2Exit"))
+        {
+            GoToTown();
+            positionChange = PositionChangeEnum.CAVETOMAIN;
+        }
+
+        if (other.CompareTag("IslandEntrance"))
+        {
+            GoToTown();
+            positionChange = PositionChangeEnum.CAVETOMAIN;
+        }
+
+        if (other.CompareTag("IslandExit"))
+        {
+            GoToTown();
+            positionChange = PositionChangeEnum.CAVETOMAIN;
+        }
+
     }
 
     void OnTriggerStay2D(Collider2D other)

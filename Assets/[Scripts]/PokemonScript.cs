@@ -9,7 +9,6 @@ public class PokemonScript : MonoBehaviour
     public BattleSceneManager battleSceneManager;
 
     public Pokemon pokemon;
-    //public Image PokemonSprite;
     public List<Attacks> ListAttacks;
     public bool isPlayerPokemon = false;
 

@@ -26,6 +26,32 @@ public class PositionAdjuster : MonoBehaviour
             case PositionChangeEnum.CAVETOMAIN:
                 positionListIndex = 0;
                 break;
+            case PositionChangeEnum.COLISEUMTOMAIN:
+                positionListIndex = 1;
+                break;
+            case PositionChangeEnum.CAVE2TOMAIN:
+                positionListIndex = 2;
+                break;
+            case PositionChangeEnum.ISLANDTOMAIN:
+                positionListIndex = 3;
+                break;
+            case PositionChangeEnum.FORESTTOCAVE2:
+                positionListIndex = 1;
+                break;
+            case PositionChangeEnum.MAINTOCOLISEUM:
+                positionListIndex = 0;
+                break;
+            case PositionChangeEnum.MAINTOCAVE2:
+                positionListIndex = 0;
+                break;
+            case PositionChangeEnum.MAINTOISLAND:
+                positionListIndex = 0;
+                break;
+            case PositionChangeEnum.CAVE2TOFOREST:
+                positionListIndex = 0;
+                break;
+            default:
+                break;
         }
     }
 

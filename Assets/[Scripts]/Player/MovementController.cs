@@ -137,8 +137,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             {
                 if (pokemonInventory.inMenu == true)
                 {
-                    canMove = true;
-                    pokemonInventory.TooglePlayerMenu();
+                    //canMove = true;
+                    pokemonInventory.TooglePlayerMenu(false);
                 }
             }
         }
@@ -150,8 +150,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             {
                 if (pokemonInventory.inMenu == false)
                 {
-                    canMove = false;
-                    pokemonInventory.TooglePlayerMenu();
+                    //canMove = false;
+                    pokemonInventory.TooglePlayerMenu(false);
                 }
             }
 
@@ -315,8 +315,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public void Flee() ////TEST
     {
-        audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
-        BattleEnds();
+        if(battleS.GetComponent<BattleSceneManager>().InBattleProgresion==false)
+        {
+            audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
+            BattleEnds();
+        }
     }
 
     public void BattleEnds()

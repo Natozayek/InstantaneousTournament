@@ -38,6 +38,22 @@ public class PokemonSlot : MonoBehaviour
         stats.StatsUpdate(pokemon.PokemonName, pokemon.lvl, pokemon.FinalHP, pokemon.currentHP);
     }
 
+    public void AddPokemonToSlotPlayer(GameObject poke)
+    {
+        if (PokemonObject != null)
+        {
+            GameObject inventory = GameObject.Find("PokemonInventory");
+            pokemon = null;
+            PokemonObject.transform.parent = inventory.gameObject.transform;
+            PokemonObject = null;
+        }
+
+        PokemonObject = poke;
+        PokemonObject.transform.parent = transform;
+        pokemon = PokemonObject.GetComponent<PokemonScript>();
+        stats.StatsUpdate(pokemon.PokemonName, pokemon.lvl, pokemon.FinalHP, pokemon.currentHP);
+    }
+
     public void PlayerFleeSupport()
     {
         pokemon = null;

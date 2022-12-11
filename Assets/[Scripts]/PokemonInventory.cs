@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PokemonInventory : MonoBehaviour
 {
@@ -18,20 +19,33 @@ public class PokemonInventory : MonoBehaviour
     public int pokemonIndex = 0;
     public BattleSceneManager battleSceneManager;
     public bool inMenu;
+    public bool inBattle = false;
 
     public TMP_Text pokeballCount;
     public MovementController m_MovementController;
 
+    public GameObject SwitchPanel;
+
+    public Button GoBack;
+
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerPokemonSlot = GameObject.Find("PlayerPokemon").GetComponent<PokemonSlot>();
-        //battleSceneManager = GameObject.FindObjectOfType<BattleSceneManager>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(battleSceneManager.hasToChangePokemon == true)
+        {
+            GoBack.gameObject.SetActive(false);   
+        }
+        else
+        {
+            GoBack.gameObject.SetActive(true);
+        }
+
         SelectedPokemon = PokemonInventoryList[pokemonIndex];
         if(playerMenu.active == true)
         {
@@ -42,15 +56,49 @@ public class PokemonInventory : MonoBehaviour
         inMenu = playerMenu.active;
     }
 
-    public void TooglePlayerMenu()
+    public void TooglePlayerMenu(bool _inBattle)
     {
+        inBattle = _inBattle;
         if (inMenu == true)
         {
             playerMenu.SetActive(false);
+            MovementController.Instance.canMove = true;
         }
         else
         {
             playerMenu.SetActive(true);
+            MovementController.Instance.canMove = false;
+        }
+    }
+
+    public void TooglePlayerMenuInBattle()
+    {
+        if(battleSceneManager.InBattleProgresion == false)
+        {
+            inBattle = true;
+            if (inMenu == true)
+            {
+                playerMenu.SetActive(false);
+                MovementController.Instance.canMove = true;
+            }
+            else
+            {
+                playerMenu.SetActive(true);
+                MovementController.Instance.canMove = false;
+            }
+        }
+    }
+
+    public void ToogleSwitchPanelMenu(int i)
+    {
+        if (SwitchPanel.active == true)
+        {
+            SwitchPanel.SetActive(false);
+        }
+        else
+        {
+            SwitchPanel.SetActive(true);
+            SwitchPanel.GetComponent<SwitchPanelScript>().UpdatePokemonData(i);
         }
     }
 
@@ -65,6 +113,11 @@ public class PokemonInventory : MonoBehaviour
     public void ChoosePokemon()
     {
         battleSceneManager.PokemonSlotInBattle[0].GetComponent<PokemonSlot>().AddPokemonToSlot(SelectedPokemon);
+    }
+
+    public void ChangeActivePokemon(int newPokemonIndex)
+    {
+        pokemonIndex = newPokemonIndex; //
     }
 
     public int GetPokemonsAlive()
@@ -112,11 +165,12 @@ public class PokemonInventory : MonoBehaviour
     public void AddCapturedPokemon(GameObject capturedPokemon)
     {
         GameObject newPokemon = Instantiate(capturedPokemon);
+        newPokemon.GetComponent<Image>().sprite = newPokemon.GetComponent<PokemonScript>().pokemon.poke1;   
         newPokemon.name = newPokemon.GetComponent<PokemonScript>().pokemon.name;
         newPokemon.GetComponent<PokemonScript>().isPlayerPokemon = true;
+        PokemonInventoryListMenu[PokemonInventoryList.Count].gameObject.SetActive(true);
         PokemonInventoryList.Add(newPokemon);
         newPokemon.transform.parent = this.gameObject.transform;
-
     }
 
 }

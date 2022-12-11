@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65cde73da08cb34c88e302cad4456a4, type: 3}
   m_Name: Fire Ball
   m_EditorClassIdentifier: 
-  Damage: 40
+  Damage: 25
   Accuaracy: 0
   MaxPP: 15
   Type: 0

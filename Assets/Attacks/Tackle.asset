@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65cde73da08cb34c88e302cad4456a4, type: 3}
   m_Name: Tackle
   m_EditorClassIdentifier: 
-  Damage: 20
+  Damage: 17
   Accuaracy: 0
   MaxPP: 20
   Type: 0

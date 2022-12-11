@@ -15,9 +15,9 @@ MonoBehaviour:
   poke1: {fileID: 21300000, guid: 717c961c14fff12469903f95522c182c, type: 3}
   poke2: {fileID: 21300000, guid: ce5f787cc0425d846a1bfc81ad002f8c, type: 3}
   attack0: {fileID: 11400000, guid: 76c1cd1c8304da448bfe31e9ab29fce2, type: 2}
-  attack1: {fileID: 11400000, guid: 2919801ffe0fbde4699db6d5de1b7ec1, type: 2}
-  attack2: {fileID: 11400000, guid: 76c1cd1c8304da448bfe31e9ab29fce2, type: 2}
-  attack3: {fileID: 11400000, guid: 21804dd292a89444ab6c2c6d3f379469, type: 2}
+  attack1: {fileID: 11400000, guid: 7091bc04a585503459361e9c4f03deb1, type: 2}
+  attack2: {fileID: 11400000, guid: e61888ecf2c95d147bac7d505788088a, type: 2}
+  attack3: {fileID: 11400000, guid: c44c5f8e4be766d4c84900cc1bd4a803, type: 2}
   BaseHP: 11
   BaseAtk: 5
   BaseDef: 6

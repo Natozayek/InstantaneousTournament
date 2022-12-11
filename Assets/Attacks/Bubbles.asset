@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65cde73da08cb34c88e302cad4456a4, type: 3}
   m_Name: Bubbles
   m_EditorClassIdentifier: 
-  Damage: 50
+  Damage: 30
   Accuaracy: 0
   MaxPP: 10
   Type: 1

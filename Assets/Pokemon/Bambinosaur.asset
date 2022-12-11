@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poke1: {fileID: 21300000, guid: d2971cc5f40fe2f44820ff527b2bb844, type: 3}
   poke2: {fileID: 21300000, guid: b6ea2419bdaea3f459b57b361af49947, type: 3}
-  attack0: {fileID: 11400000, guid: 351d2249bd7e05f499ff51518971debc, type: 2}
-  attack1: {fileID: 11400000, guid: e61888ecf2c95d147bac7d505788088a, type: 2}
-  attack2: {fileID: 11400000, guid: a398e71403de5ea46af28a3dfa7d328f, type: 2}
-  attack3: {fileID: 11400000, guid: c44c5f8e4be766d4c84900cc1bd4a803, type: 2}
+  attack0: {fileID: 11400000, guid: a398e71403de5ea46af28a3dfa7d328f, type: 2}
+  attack1: {fileID: 11400000, guid: 3092e587322301748a1dc6b267e6f8e1, type: 2}
+  attack2: {fileID: 11400000, guid: 71bfaaa810db37d48ac113dc0545fee5, type: 2}
+  attack3: {fileID: 11400000, guid: e61888ecf2c95d147bac7d505788088a, type: 2}
   BaseHP: 9
   BaseAtk: 8
   BaseDef: 3

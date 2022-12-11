@@ -11,6 +11,11 @@ TagManager:
   - WoodsEntrance
   - ColliseoEntrance
   - WoodsExit
+  - IslandEntrance
+  - ColliseoExit
+  - NPC
+  - IslandExit
+  - Cave2Exit
   layers:
   - Default
   - TransparentFX

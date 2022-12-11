@@ -13147,12 +13147,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  PokemonPrefab: {fileID: 630140236333748738, guid: 08ddc032762aa3e4aab9acc8517dc4ea, type: 3}
+  PokemonPrefab: {fileID: 630140236333748738, guid: 8736556b24cac374185b2eaf073d6b19, type: 3}
   CurrentMaxLVL: 4
   CurrentMinLVL: 1
   PokemonListFromBush:
+  - {fileID: 11400000, guid: 8da5d9ee105d34e47ac70676dc24ee6a, type: 2}
+  - {fileID: 11400000, guid: f6e98a492d4216545b3391f303fb132b, type: 2}
+  - {fileID: 11400000, guid: ab8b57f927b6644419fe025c740a2e00, type: 2}
+  - {fileID: 11400000, guid: f949d9d5df873d343a5adeaf85b0dcd1, type: 2}
+  - {fileID: 11400000, guid: e1a187fde82e71d4098fed3c2f01b039, type: 2}
+  - {fileID: 11400000, guid: 1887853814e7dd84399d9bfc09d16be3, type: 2}
+  - {fileID: 11400000, guid: b3cb47b0b3e32cb498c659146064a76a, type: 2}
+  - {fileID: 11400000, guid: 23e6a033ce9432d4e95f0adcaf74ab6c, type: 2}
   - {fileID: 11400000, guid: 1baa602093c4a3540a87f91b2387057e, type: 2}
-  PokemonListFromBushChancesOfAppearing: 64000000
+  - {fileID: 11400000, guid: 07bc81c76d5d3a5408e93b6497ba09ee, type: 2}
+  - {fileID: 11400000, guid: 1baa602093c4a3540a87f91b2387057e, type: 2}
+  - {fileID: 11400000, guid: a7a21b88f1ecb5d49b8b49de7659ba85, type: 2}
+  - {fileID: 11400000, guid: a96e36e5ea22b6142996b0b97efa3bcc, type: 2}
+  - {fileID: 11400000, guid: 567bc1249dcf1e247a4f54df41f193a3, type: 2}
+  - {fileID: 11400000, guid: 4347dbfcf39a3c04cac914a2d3d0807f, type: 2}
+  - {fileID: 11400000, guid: 075b926930bbcd844847e2c5d6afd848, type: 2}
+  - {fileID: 11400000, guid: b82557c37be96b84d875cd0828458323, type: 2}
+  - {fileID: 11400000, guid: ecda2ec867e0326439503e6ef41d4e19, type: 2}
+  PokemonListFromBushChancesOfAppearing: 070000000400000007000000070000000700000007000000070000000400000006000000070000000600000006000000010000000400000002000000060000000600000006000000
   pokemonListFinal: []
   battleSceneManager: {fileID: 0}
 --- !u!1001 &4458364965003577208

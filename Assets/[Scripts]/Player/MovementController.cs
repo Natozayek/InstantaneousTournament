@@ -11,7 +11,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public static MovementController Instance { get; private set; }
 
     public Rigidbody2D rigidbody;
-   // private new SpriteRenderer spriteRenderer;
+    // private new SpriteRenderer spriteRenderer;
     private Vector2 direction = Vector2.down;
     public float speed = 5f;
     float speedValue;
@@ -22,7 +22,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public KeyCode inputLeft = KeyCode.A;
     public KeyCode inputRight = KeyCode.D;
 
-   
+
     [Header("Sprites")]
     public SpriteRendererController spriteAnimUp;
     public SpriteRendererController spriteAnimDown;
@@ -35,7 +35,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     private ParticleSystem ps;
 
-    
+
 
     #region Asper work 
     //Asper
@@ -78,13 +78,16 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public PokemonInventory pokemonInventory;
     public int pokeballsOwned = 6;
     public PositionChangeEnum positionChange = PositionChangeEnum.NONE;
+
+    public NPCScript activeNpc;
+    public ChatBox ChatBoxManager;
     #endregion
 
 
     private void Awake()
     {
-       rigidbody = GetComponent<Rigidbody2D>();
-       activeAnimation =  spriteAnimDown;
+        rigidbody = GetComponent<Rigidbody2D>();
+        activeAnimation = spriteAnimDown;
         if (Instance == null)
         {
             Instance = this;
@@ -110,7 +113,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     // Start is called before the first frame update
     void Start()
     {
-       //To get acces to each object script and know if they are colliding or not
+        //To get acces to each object script and know if they are colliding or not
         DownCollider = downBox.GetComponent<InteractSquare>();
         UpCollider = upBox.GetComponent<InteractSquare>();
         LeftCollider = leftBox.GetComponent<InteractSquare>();
@@ -122,7 +125,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
         speedValue = speed;
         canMove = true;
-      
+
     }
 
     // Update is called once per frame
@@ -146,12 +149,25 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         {
             speed = speedValue;
 
-            if(Input.GetKeyDown(KeyCode.X))
+            activeNpc = interactBox.GetComponent<InteractSquare>().npc;
+
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 if (pokemonInventory.inMenu == false)
                 {
                     //canMove = false;
                     pokemonInventory.TooglePlayerMenu(false);
+                }
+            }
+
+            if (activeNpc != null)
+            {
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    if (pokemonInventory.inMenu == false)
+                    {
+                        Interact();
+                    }
                 }
             }
 
@@ -261,7 +277,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     {
         direction = newDirection;
 
-        spriteAnimUp.enabled = spriteController == spriteAnimUp; 
+        spriteAnimUp.enabled = spriteController == spriteAnimUp;
         spriteAnimDown.enabled = spriteController == spriteAnimDown;
         spriteAnimLeft.enabled = spriteController == spriteAnimLeft;
         spriteAnimRight.enabled = spriteController == spriteAnimRight;
@@ -278,7 +294,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
         //Will move towards the new position until the diference in distance is
         //less than Epsilon (The smallest value that a float can have different from zero.)
-        if(canMove == true)
+        if (canMove == true)
         {
             while ((tPos - transform.position).sqrMagnitude > Mathf.Epsilon)
             {
@@ -296,12 +312,12 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if (inBush == true)
         {
             float Chance = Random.value; // a random number between 0 and 1.0
-           // Debug.Log("Random: " + Chance);
+                                         // Debug.Log("Random: " + Chance);
             if (Chance < 0.1) // a 10% chance
             {
                 ToBattle();
             }
-            
+
         }
 
     }
@@ -315,7 +331,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public void Flee() ////TEST
     {
-        if(battleS.GetComponent<BattleSceneManager>().InBattleProgresion==false)
+        if (battleS.GetComponent<BattleSceneManager>().InBattleProgresion == false)
         {
             audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
             BattleEnds();
@@ -371,6 +387,26 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToColiseoCoro());
     }
+
+    public void GoToIsland()
+    {
+        canMove = false;
+        StopAllCoroutines();
+        isMoving = false;
+        fader.fadeIn();
+        fader.StartCoroutine(fader.GoToIslandCoro());
+    }
+
+    public void Interact()
+    {
+        canMove = false;
+        if(activeNpc.isProfesor == true)
+        {
+            pokemonInventory.HealAllPokemon();
+        }
+        StartCoroutine(InteractStart());
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("CaveNtrance"))
@@ -421,14 +457,14 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
         if (other.CompareTag("IslandEntrance"))
         {
-            GoToTown();
-            positionChange = PositionChangeEnum.CAVETOMAIN;
+            GoToIsland();
+            positionChange = PositionChangeEnum.MAINTOISLAND;
         }
 
         if (other.CompareTag("IslandExit"))
         {
             GoToTown();
-            positionChange = PositionChangeEnum.CAVETOMAIN;
+            positionChange = PositionChangeEnum.ISLANDTOMAIN;
         }
 
     }
@@ -459,5 +495,13 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         fader.fadeOut();
     }
 
-    
+    public IEnumerator InteractStart()
+    {
+        ChatBoxManager.ChatBoxActivate(activeNpc.mainChat);
+
+        yield return new WaitForSeconds(2.0f);
+
+        ChatBoxManager.ChatBoxDeActivate();
+        canMove = true;
+    }
 }

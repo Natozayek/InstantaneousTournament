@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c65cde73da08cb34c88e302cad4456a4, type: 3}
-  m_Name: FireAttack2
+  m_Name: Spiky Shield
   m_EditorClassIdentifier: 
-  Damage: 50
+  Damage: 10
   Accuaracy: 0
   MaxPP: 10
-  Type: 0
-  isOffensive: 1
+  Type: 2
+  isOffensive: 0
   isHeal: 0
-  isBuff: 0
-  buffType: 0
+  isBuff: 1
+  buffType: 2
   isEmpty: 0
-  animationNamePlayer: Burn
-  animationNameEnemy: BurnE
+  animationNamePlayer: SpikyShield
+  animationNameEnemy: SpikyShieldE

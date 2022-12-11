@@ -129,7 +129,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: zoonami_enemy_electrocute_animation_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 362
+        width: 55
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ceec14f6130214e9430b365eef783f
+      internalID: 1575588280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zoonami_enemy_electrocute_animation_1
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 202
+        width: 55
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab45cc527c3ab1348813ba17c99814d6
+      internalID: 1965194233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zoonami_enemy_electrocute_animation_2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 42
+        width: 51
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e9e691c0b60e004d8c685339e1c7beb
+      internalID: 89629645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -140,7 +203,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      zoonami_enemy_electrocute_animation_2: 89629645
+      zoonami_enemy_electrocute_animation_0: 1575588280
+      zoonami_enemy_electrocute_animation_1: 1965194233
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

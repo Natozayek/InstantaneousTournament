@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7266a1c61ee157c43b70694f8fcebf71
+guid: 6219846de8f6ef54e9953066b2db04fd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,7 +129,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: AngerShell_0
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 566
+        width: 64
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 583616e37fae20144b25da8f48a3d705
+      internalID: -97070202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngerShell_1
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 406
+        width: 64
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ba5e94cd513054396036975a543936
+      internalID: -885447399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngerShell_2
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 246
+        width: 64
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db8c420c89535cf479f0bf1e5c818253
+      internalID: -93681385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngerShell_3
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 86
+        width: 64
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bbe5b1b3809909498cdb908b20f0841
+      internalID: -1062617726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -140,7 +224,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      AngerShell_3: -1062617726
+      AngerShell_1: -885447399
+      AngerShell_0: -97070202
+      AngerShell_2: -93681385
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

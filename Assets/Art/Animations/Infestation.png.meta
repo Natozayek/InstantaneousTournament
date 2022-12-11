@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d0f799c272024f442a9687010bb73284
+guid: 158fc12891bccd74e907a84753dafba1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,7 +129,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Infestation_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 349
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2efe02466619c241995cbe03f744d12
+      internalID: -457429977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Infestation_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 259
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 400399f15b015714cbafaa20d8ce4680
+      internalID: 849429232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Infestation_2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 180
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82400a5bf9ee607479d6755988d85700
+      internalID: -338579708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Infestation_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 29
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67a253f203fc4e445b2076befb8e8ca2
+      internalID: 1568743128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -140,7 +224,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Infestation_1: 849429232
+      Infestation_2: -338579708
+      Infestation_0: -457429977
+      Infestation_3: 1568743128
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

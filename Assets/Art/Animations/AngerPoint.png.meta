@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 158fc12891bccd74e907a84753dafba1
+guid: d0f799c272024f442a9687010bb73284
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,7 +129,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: AngerPoint_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 512
+        width: 58
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50244f5acc0193f41a485a1628d688cd
+      internalID: 2132430442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngerPoint_1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 353
+        width: 58
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0314bdf509c3e04ea9dba345aba5d04
+      internalID: 1307401221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngerPoint_2
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 194
+        width: 58
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6f1bfc67c0f7184da227ff11454be0f
+      internalID: 787220637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngerPoint_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 35
+        width: 55
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87d6d92bfac12bb449997d71a63b233c
+      internalID: 1403039033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -140,7 +224,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      AngerPoint_3: 1403039033
+      AngerPoint_0: 2132430442
+      AngerPoint_2: 787220637
+      AngerPoint_1: 1307401221
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

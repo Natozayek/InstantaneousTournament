@@ -17,6 +17,16 @@ public class NPCScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(isShop == true)
+        {
+            if(GlobalData.Instance.monney >= 200)
+            {
+                mainChat = chat1;
+            }    
+            else
+            {
+                mainChat = chat2;
+            }
+        }
     }
 }

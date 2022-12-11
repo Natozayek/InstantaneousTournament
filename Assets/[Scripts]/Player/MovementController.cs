@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 using static UnityEditor.PlayerSettings;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -54,6 +55,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     //All of this are to make the character unable to move into objects while respecting the tile movement
     //Also will help on the futute with interaction stuff. I did try using only one that changed places when 
     //Player moved but got stuck with a movement bug
+    public List<InteractSquare> l_Squares;
+
     public GameObject downBox;
     InteractSquare DownCollider;
 
@@ -81,6 +84,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public NPCScript activeNpc;
     public ChatBox ChatBoxManager;
+    public TimePanelManager TimePanel;
     #endregion
 
 
@@ -354,6 +358,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToCaveCoro());
+        ResetSquares();
     }
     public void GoToCaveToWoods()
     {
@@ -362,6 +367,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToCaveWoodsCoro());
+        ResetSquares();
     }
     public void GoToWoods()
     {
@@ -370,6 +376,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToWoodsCoro());
+        ResetSquares();
     }
     public void GoToTown()
     {
@@ -378,6 +385,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToTownCoro());
+        ResetSquares();
     }
     public void GoToColiseo()
     {
@@ -386,6 +394,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToColiseoCoro());
+        ResetSquares();
     }
 
     public void GoToIsland()
@@ -395,6 +404,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToIslandCoro());
+        ResetSquares();
     }
 
     public void Interact()
@@ -403,10 +413,37 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if(activeNpc.isProfesor == true)
         {
             pokemonInventory.HealAllPokemon();
+            StartCoroutine(InteractStart());
         }
-        StartCoroutine(InteractStart());
+        else if (activeNpc.isShop == true)
+        {
+            string text;
+            if(GlobalData.Instance.monney >= 200)
+            {
+                text = activeNpc.mainChat;
+                ChatBoxManager.ChatBoxActivateShop(text);
+            }
+            else
+            {
+                StartCoroutine(InteractStart());
+            }
+            
+        }
+        else
+        {
+            StartCoroutine(InteractStart());
+        }
+
     }
 
+    public void ResetSquares()
+    {
+        interactBox.GetComponent<InteractSquare>().isObstacle = false;
+        foreach (InteractSquare Square in l_Squares)
+        {
+            Square.isObstacle = false;
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("CaveNtrance"))
@@ -452,7 +489,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if (other.CompareTag("Cave2Exit"))
         {
             GoToTown();
-            positionChange = PositionChangeEnum.CAVETOMAIN;
+            positionChange = PositionChangeEnum.CAVE2TOMAIN;
         }
 
         if (other.CompareTag("IslandEntrance"))

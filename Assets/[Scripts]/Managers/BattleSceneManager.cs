@@ -202,7 +202,7 @@ public class BattleSceneManager : MonoBehaviour
 
             Attack(playerPokemon, enemyPokemon, true);
 
-            if (enemyPokemon.currentHP < 0)
+            if (enemyPokemon.currentHP <= 0)
             {
                 //Check if it is a Trainer Battle
                 StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
@@ -248,7 +248,7 @@ public class BattleSceneManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(1);
                 Attack(playerPokemon, enemyPokemon, true);
-                if (enemyPokemon.currentHP < 0)
+                if (enemyPokemon.currentHP <= 0)
                 {
                     //Check if it is a Trainer Battle
                     StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
@@ -479,12 +479,12 @@ public class BattleSceneManager : MonoBehaviour
 
         int expGain = (wildPokemon.pokemon.ExpWorth * wildPokemon.lvl) / 7;
         player.currentXP += expGain;
-        Debug.Log(expGain);
         ToMainMenu();
         battleEnds = false;
         InBattleProgresion = false;
         playerGameObject.BattleEnds();
         StopAllCoroutines();
+        GlobalData.Instance.monney += 50;
     }
 
     IEnumerator CaptureAttempt(PokemonScript wildPokemon)

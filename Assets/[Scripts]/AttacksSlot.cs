@@ -53,9 +53,12 @@ public class AttacksSlot : MonoBehaviour
 
     public void AttackCommand()
     {
-        if (Attack.isEmpty == false)
+        if(Pokemon.CurrentPP[AttackIndex] > 0)
         {
-            Pokemon.InputAttackCommand(AttackIndex);
+            if (Attack.isEmpty == false)
+            {
+                Pokemon.InputAttackCommand(AttackIndex);
+            }
         }
     }
 }

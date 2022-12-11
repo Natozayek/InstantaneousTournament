@@ -76,7 +76,7 @@ public class Bush : MonoBehaviour
         int randomLvl = Random.Range(CurrentMinLVL, CurrentMaxLVL);
         newPokemon.GetComponent<PokemonScript>().Initiate(selectedPokemon, false, randomLvl);
         battleSceneManager.GetComponent<BattleSceneManager>().PokemonSlotInBattle[1].GetComponent<PokemonSlot>().AddPokemonToSlot(newPokemon);
-
+        newPokemon.GetComponent<PokemonScript>().SetXpNeeded();
 
     }
 }

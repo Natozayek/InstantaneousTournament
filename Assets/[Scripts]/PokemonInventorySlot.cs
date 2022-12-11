@@ -26,7 +26,15 @@ public class PokemonInventorySlot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if(BattleSceneManager.Instance)
+        //if(PokemonData.currentHP <= 0)
+        //{
+        //    pokemonButton.interactable = false;
+        //}
+        //else
+        //{
+        //    pokemonButton.interactable = true;
+        //}
     }
 
     public void SetPokemon(GameObject _pokemon)
@@ -46,6 +54,6 @@ public class PokemonInventorySlot : MonoBehaviour
         HpBar.maxValue = PokemonData.FinalHP;
         HpBar.value = PokemonData.currentHP;
 
-        pokemonImage.sprite = PokemonData.pokemon.poke1;
+        pokemonImage.sprite = PokemonData.pokemon.poke2;
     }
 }

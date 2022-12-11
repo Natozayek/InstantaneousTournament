@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 77890493}
   m_Layer: 6
   m_Name: ColiseoExit
-  m_TagString: CaveExit
+  m_TagString: ColliseoExit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28745,7 +28745,6 @@ GameObject:
   - component: {fileID: 1741923376}
   - component: {fileID: 1741923375}
   - component: {fileID: 1741923374}
-  - component: {fileID: 1741923377}
   m_Layer: 6
   m_Name: floor
   m_TagString: Untagged
@@ -38187,27 +38186,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1741923377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1741923372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96f548159f34d604798d2cd472b19c92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  PokemonPrefab: {fileID: 630140236333748738, guid: 08ddc032762aa3e4aab9acc8517dc4ea, type: 3}
-  CurrentMaxLVL: 0
-  CurrentMinLVL: 0
-  PokemonListFromBush:
-  - {fileID: 11400000, guid: 1baa602093c4a3540a87f91b2387057e, type: 2}
-  PokemonListFromBushChancesOfAppearing: 64000000
-  pokemonListFinal: []
-  battleSceneManager: {fileID: 0}
 --- !u!1 &1838310379
 GameObject:
   m_ObjectHideFlags: 0
@@ -38376,3 +38354,85 @@ Transform:
   m_Father: {fileID: 348705389}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3469919535517134536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3469919535517134551}
+  - component: {fileID: 3469919535517134550}
+  m_Layer: 0
+  m_Name: playerPositionAdjust
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &3469919535517134550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469919535517134536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25bb0d15679a4184fb20a2230514d3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  l_Positions:
+  - {fileID: 3469919535754230908}
+  positionListIndex: -1
+  player: {fileID: 0}
+  positionChange: 0
+  positionChanged: 0
+--- !u!4 &3469919535517134551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469919535517134536}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3469919535754230907}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &3469919535754230907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469919535754230908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -11.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3469919535517134551}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3469919535754230908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3469919535754230907}
+  m_Layer: 0
+  m_Name: CityToColiseum
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65cde73da08cb34c88e302cad4456a4, type: 3}
   m_Name: Growth
   m_EditorClassIdentifier: 
-  Damage: -1
+  Damage: 20
   Accuaracy: 0
   MaxPP: 20
   Type: 0
   isOffensive: 0
-  isHeal: 0
-  isBuff: 1
+  isHeal: 1
+  isBuff: 0
   buffType: 1
   isEmpty: 0
   animationNamePlayer: Growth

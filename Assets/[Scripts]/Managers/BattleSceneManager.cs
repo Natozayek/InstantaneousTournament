@@ -18,6 +18,7 @@ public class BattleSceneManager : MonoBehaviour
 
     public bool InBattleProgresion = false;
     bool battleEnds = false;
+    public bool hasToChangePokemon = false;
 
     //public Button AttackButton;
 
@@ -40,7 +41,6 @@ public class BattleSceneManager : MonoBehaviour
     {
         _pokemonInventory = GameObject.FindObjectOfType<PokemonInventory>();
         playerGameObject = GameObject.FindObjectOfType<MovementController>();
-        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -63,21 +63,30 @@ public class BattleSceneManager : MonoBehaviour
 
     public void ToAttackMenu()
     {
-        MainBattleMenu.SetActive(false);
-        AttackBattleMenu.SetActive(true);
+        if (InBattleProgresion == false)
+        {
+            MainBattleMenu.SetActive(false);
+            AttackBattleMenu.SetActive(true);
+        }
     }
     
     public void ToMainMenu()
     {
-        MainBattleMenu.SetActive(true);
-        AttackBattleMenu.SetActive(false);
+        if (InBattleProgresion == false)
+        {
+            MainBattleMenu.SetActive(true);
+            AttackBattleMenu.SetActive(false);
+        }
     }
 
     public void flee()
     {
-        if (gameObject.activeSelf == true)
+        if (InBattleProgresion == false)
         {
-            gameObject.SetActive(false);
+            if (gameObject.activeSelf == true)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
@@ -85,6 +94,7 @@ public class BattleSceneManager : MonoBehaviour
     {
         if (InBattleProgresion == false)
         {
+            ToMainMenu();
             InBattleProgresion = true;
             StartCoroutine(E_BattleProgression());
         }
@@ -123,6 +133,20 @@ public class BattleSceneManager : MonoBehaviour
         }
     }
 
+    public void changePokemonBattle()
+    {
+        if(InBattleProgresion == false)
+        {
+            InBattleProgresion = true;
+            StartCoroutine(changePokemon());
+        }
+    }
+
+    public void changePokemonKockOut()
+    {
+        _pokemonInventory.TooglePlayerMenuInBattle();
+    }
+
     public void Attack(PokemonScript Attacker, PokemonScript Defender, bool isPlayer)
     {
         if (isPlayer == false)
@@ -136,11 +160,11 @@ public class BattleSceneManager : MonoBehaviour
         }
         else if (Attacker.GetAttack().isBuff)
         {
-            //
+            Buff(Attacker);
         }
         else if (Attacker.GetAttack().isHeal)
         {
-            //
+            Heal(Attacker);
         }
     }
 
@@ -187,38 +211,54 @@ public class BattleSceneManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(1);
                 Attack(enemyPokemon, playerPokemon, false);
+                if (playerPokemon.currentHP <= 0)
+                {
+                    if (_pokemonInventory.GetPokemonsAlive() == 0)
+                    {
+                        //wiped
+                    }
+                    else
+                    {
+                        hasToChangePokemon = true;
+                        InBattleProgresion = false;
+                        changePokemonKockOut();
+                    }
+                }
             }
-
         }
         else if (isPlayerAttackingFirst == false)
         {
             Debug.Log("Enemy Attack");
             Attack(enemyPokemon, playerPokemon, false);
 
-            if (playerPokemon.currentHP < 0)
+            if (playerPokemon.currentHP <= 0)
             {
-                //Check if it is a Trainer Battle
-                //endBattle
                 if (_pokemonInventory.GetPokemonsAlive() == 0)
                 {
                     //wiped
                 }
                 else
                 {
-                    //Force to change; 
+                    hasToChangePokemon = true;
+                    InBattleProgresion = false;
+                    changePokemonKockOut();
                 }
             }
             else
             {
                 yield return new WaitForSeconds(1);
                 Attack(playerPokemon, enemyPokemon, true);
+                if (enemyPokemon.currentHP < 0)
+                {
+                    //Check if it is a Trainer Battle
+                    StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+                }
             }    
         }
 
         if (battleEnds == false)
         {
             yield return new WaitForSeconds(1);
-            ToMainMenu();
             InBattleProgresion = false;
         }
     }
@@ -390,6 +430,36 @@ public class BattleSceneManager : MonoBehaviour
         Defender.currentHP -= finalDamage;
     }
 
+    private void Buff(PokemonScript user)
+    {
+        int buff = user.GetAttack().Damage;
+
+        switch (user.GetAttack().buffType)
+        {
+            case BuffType.NONE:
+                break;
+            case BuffType.BuffAtk:
+                user.BuffAtk += buff;
+                break;
+            case BuffType.BuffDef:
+                user.BuffDef += buff;
+                break;
+            case BuffType.BuffSpeed:
+                user.BuffSpeed += buff;
+                break;
+        }
+        user.UpdatePokemonStats();
+    }
+
+    private void Heal(PokemonScript user)
+    {
+        user.currentHP += user.GetAttack().Damage;
+        if(user.currentHP >= user.FinalHP)
+        {
+            user.currentHP = user.FinalHP;
+        }
+    }
+
     public GameObject ReturnPokemon()
     {
         return PokemonSlotInBattle[0].GetComponent<PokemonSlot>().GetPokemonObject();
@@ -426,9 +496,9 @@ public class BattleSceneManager : MonoBehaviour
         if (captured == true)
         {
             _pokemonInventory.AddCapturedPokemon(wildPokemon.gameObject);
-            ToMainMenu();
             battleEnds = false;
             InBattleProgresion = false;
+            ToMainMenu();
             playerGameObject.BattleEnds();
             StopAllCoroutines();
         }
@@ -448,7 +518,52 @@ public class BattleSceneManager : MonoBehaviour
                 }
                 else
                 {
-                    //Force to change; 
+                    hasToChangePokemon = true;
+                    InBattleProgresion = false;
+                    changePokemonKockOut();
+                }
+            }
+
+            InBattleProgresion = false;
+        }
+    }
+
+    IEnumerator changePokemon()
+    {
+        yield return new WaitForSeconds(2);
+
+        GameObject newPokemon = _pokemonInventory.SelectedPokemon;
+        PokemonSlotInBattle[0].GetComponent<PokemonSlot>().AddPokemonToSlotPlayer(newPokemon);
+
+
+        yield return new WaitForSeconds(2);
+
+        if (hasToChangePokemon == true)
+        {
+            hasToChangePokemon = false;
+            InBattleProgresion = false;
+        }
+        else
+        {
+            PokemonScript playerPokemon = PokemonSlotInBattle[0].GetComponent<PokemonSlot>().GetPokemon();
+            PokemonScript wildPokemon = PokemonSlotInBattle[1].GetComponent<PokemonSlot>().GetPokemon();
+
+            Debug.Log("Enemy Attack");
+            Attack(wildPokemon, playerPokemon, false);
+
+            if (playerPokemon.currentHP < 0)
+            {
+                //Check if it is a Trainer Battle
+                //endBattle
+                if (_pokemonInventory.GetPokemonsAlive() == 0)
+                {
+                    //wiped
+                }
+                else
+                {
+                    hasToChangePokemon = true;
+                    InBattleProgresion = false;
+                    changePokemonKockOut();
                 }
             }
 

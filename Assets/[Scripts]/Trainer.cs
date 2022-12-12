@@ -7,7 +7,7 @@ public class Trainer : MonoBehaviour
     public List<GameObject> pokemonList;
     public BattleSceneManager battleSceneManager;
     public int levelDesired;
-    public int activePokemon = 0;
+    public int activePokemon = 2;
     public GameObject SelectedPokemon;
     // Start is called before the first frame update
     void Start()
@@ -53,8 +53,17 @@ public class Trainer : MonoBehaviour
         }
     }
 
+    public void SwitchPokemon()
+    {
+        Destroy(SelectedPokemon);
+        SelectedPokemon = null;
+        pokemonList.RemoveAt(activePokemon);
+        activePokemon--;
+    }
+
     public void ChoosePokemon()
     {
+        SelectedPokemon.GetComponent<PokemonScript>().SetHPToMax();
         battleSceneManager.PokemonSlotInBattle[1].GetComponent<PokemonSlot>().AddPokemonToSlot(SelectedPokemon);
     }
 }

@@ -37,8 +37,9 @@ public class TimePanelManager : MonoBehaviour
         }
 
         f_Sec -= Time.deltaTime;
-        //f_Sec -= Time.deltaTime;//
-        //f_Sec -= Time.deltaTime;//
+        f_Sec -= Time.deltaTime;//
+        f_Sec -= Time.deltaTime;//
+        f_Sec -= Time.deltaTime;//
         GlobalData.Instance.Sec = (int)f_Sec;
     }
 

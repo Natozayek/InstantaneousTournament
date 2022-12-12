@@ -144,6 +144,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             canMove = false;
             if (InTrainerBattle == false)
             {
+                activeAnimation = spriteAnimRight;
+                SetDirection(Vector2.right, spriteAnimRight);
                 StartCoroutine(GoToTrainerBattle());
             }
 
@@ -154,11 +156,20 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             hasPokemonAlive = pokemonInventory.HasPokemonsAlive();
             if (hasPokemonAlive == false)
             {
-                inBush = false;
-                BattleEnds();
-                GoToColiseo();
-                positionChange = PositionChangeEnum.DEFEAT;
-                pokemonInventory.HealAllPokemon();
+                if(BattleSceneManager.Instance.isTrainerBattle == false)
+                {
+                    activeAnimation = spriteAnimRight;
+                    inBush = false;
+                    BattleEnds();
+                    GoToColiseo();
+                    positionChange = PositionChangeEnum.DEFEAT;
+                    pokemonInventory.HealAllPokemon();
+                }
+                else
+                {
+                    BattleSceneManager.Instance.EndGame();
+                }
+
             }
         }
 
@@ -368,10 +379,13 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public void Flee() ////TEST
     {
-        if (battleS.GetComponent<BattleSceneManager>().InBattleProgresion == false)
+        if(GlobalData.Instance.TournamentTime == false)
         {
-            audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
-            BattleEnds();
+            if (battleS.GetComponent<BattleSceneManager>().InBattleProgresion == false)
+            {
+                audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
+                BattleEnds();
+            }
         }
     }
 
@@ -423,7 +437,17 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public void GoToColiseo()
     {
         canMove = false;
-        //StopAllCoroutines();
+        StopAllCoroutines();
+        isMoving = false;
+        fader.fadeIn();
+        fader.StartCoroutine(fader.GoToColiseoCoro());
+        ResetSquares();
+    }
+
+    public void GoToTournament()
+    {
+        canMove = false;
+        StopAllCoroutines();
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToColiseoCoro());
@@ -491,6 +515,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             pokemonInventory.AddCapturedPokemon(activeNpc.pokemon);
             hasStartingPokemon = true;
         }    
+    }
+
+    public void StartColliseumBattle()
+    {
+        StartCoroutine(E_StartColiseumBattleBattle());
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -583,14 +612,20 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public IEnumerator GoToTrainerBattle()
     {
         InTrainerBattle = true;
-        GoToColiseo();
         positionChange = PositionChangeEnum.TOURNAMENT;
+        StoryProgression.Instance.StoryProgresion();
+        GoToTournament();
+
         //Debug.Log("P1");
         
-        //yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
-        //Debug.Log("P2");
-        //fader.fadeInBattle();
+
+    }
+
+    public IEnumerator E_StartColiseumBattleBattle()
+    {
+        fader.fadeInBattle();
 
         yield return new WaitForSeconds(0.4f);
 

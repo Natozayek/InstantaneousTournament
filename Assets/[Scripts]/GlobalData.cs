@@ -22,6 +22,8 @@ public class GlobalData : MonoBehaviour
     public bool beatTrainer1 = false;
     public bool TournamentTime = false;
 
+    public bool gameClear = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -61,7 +63,7 @@ public class GlobalData : MonoBehaviour
 
     public void Update()
     {
-        if(MovementController.Instance.canMove == true && Min <= 0 && Sec <= 0)
+        if(MovementController.Instance.canMove == true && Min < 0)
         {
             TournamentTime = true;
         }

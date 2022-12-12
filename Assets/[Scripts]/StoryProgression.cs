@@ -59,5 +59,18 @@ public class StoryProgression : MonoBehaviour
             storyIndexStop++;
         }
         storyIndex++;
+        if(storyIndex == 13)
+        {
+            MovementController.Instance.StartColliseumBattle();
+        }
+        else if (storyIndex == 16)
+        {
+            MovementController.Instance.StartColliseumBattle();
+        }
+        else if (storyIndex == 17)
+        {
+            GlobalData.Instance.gameClear = true;
+            BattleSceneManager.Instance.EndGame();
+        }
     }
 }

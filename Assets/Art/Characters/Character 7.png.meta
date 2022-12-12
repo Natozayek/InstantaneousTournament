@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -477,7 +477,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Character 7_12: -492266924
+      Character 7_1: 1119572825
       Character 7_0: 817632903
       Character 7_6: -1081236727
       Character 7_10: 18415366
@@ -492,7 +492,7 @@ TextureImporter:
       Character 7_9: -930305673
       Character 7_4: -300233649
       Character 7_11: -1918199840
-      Character 7_1: 1119572825
+      Character 7_12: -492266924
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,9 @@ public class BattleSceneManager : MonoBehaviour
     public MovementController playerGameObject;
 
     public PokemonInventory _pokemonInventory;
+
+    public GameObject EndScene;
+    public TMP_Text result;
 
     public bool InBattleProgresion = false;
     bool battleEnds = false;
@@ -123,17 +127,19 @@ public class BattleSceneManager : MonoBehaviour
 
     public void CaptureProgression()
     {
-        if(_pokemonInventory.HasPokeballs() && _pokemonInventory.CanCapture() == true)
+        if(isTrainerBattle == false)
         {
-            if (InBattleProgresion == false)
+            if (_pokemonInventory.HasPokeballs() && _pokemonInventory.CanCapture() == true)
             {
-                PokemonScript enemyPokemon = PokemonSlotInBattle[1].GetComponent<PokemonSlot>().GetPokemon();
-                InBattleProgresion = true;
-                _pokemonInventory.UsePokeBall();
-                StartCoroutine(CaptureAttempt(enemyPokemon));
+                if (InBattleProgresion == false)
+                {
+                    PokemonScript enemyPokemon = PokemonSlotInBattle[1].GetComponent<PokemonSlot>().GetPokemon();
+                    InBattleProgresion = true;
+                    _pokemonInventory.UsePokeBall();
+                    StartCoroutine(CaptureAttempt(enemyPokemon));
+                }
             }
         }
-
     }
 
     bool Capture(PokemonScript wildPokemon)
@@ -222,19 +228,19 @@ public class BattleSceneManager : MonoBehaviour
             Debug.Log("Defender Attack");
 
             Attack(playerPokemon, enemyPokemon, true);
-
+            yield return new WaitForSeconds(2);
             if (enemyPokemon.currentHP <= 0)
             {
                 //Check if it is a Trainer Battle
                 if(isTrainerBattle == true)
                 {
-                    if(activeTrainer.activePokemon == 2)
+                    if(activeTrainer.activePokemon == 0)
                     {
-                        StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+                        StartCoroutine(TrainerBattleTermination(playerPokemon, enemyPokemon));
                     }
                     else
                     {
-                        activeTrainer.activePokemon++;
+                        activeTrainer.SwitchPokemon();
                     }
                 }
                 else
@@ -245,8 +251,9 @@ public class BattleSceneManager : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(2);
                 Attack(enemyPokemon, playerPokemon, false);
+                yield return new WaitForSeconds(1);
                 if (playerPokemon.currentHP <= 0)
                 {
                     if (_pokemonInventory.GetPokemonsAlive() == 0)
@@ -266,7 +273,7 @@ public class BattleSceneManager : MonoBehaviour
         {
             Debug.Log("Enemy Attack");
             Attack(enemyPokemon, playerPokemon, false);
-
+            yield return new WaitForSeconds(1);
             if (playerPokemon.currentHP <= 0)
             {
                 if (_pokemonInventory.GetPokemonsAlive() == 0)
@@ -284,18 +291,19 @@ public class BattleSceneManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(1);
                 Attack(playerPokemon, enemyPokemon, true);
+                yield return new WaitForSeconds(1);
                 if (enemyPokemon.currentHP <= 0)
                 {
                     //Check if it is a Trainer Battle
                     if (isTrainerBattle == true)
                     {
-                        if (activeTrainer.activePokemon == 2)
+                        if (activeTrainer.activePokemon == 0)
                         {
                             StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
                         }
                         else
                         {
-                            activeTrainer.activePokemon++;
+                            activeTrainer.SwitchPokemon();
                         }
                     }
                     else
@@ -520,11 +528,31 @@ public class BattleSceneManager : MonoBehaviour
         PokemonSlotInBattle[0].GetComponent<PokemonSlot>().PlayerFleeSupport();
     }
 
+    public void EndGame()
+    {
+        StartCoroutine(E_EndGame());
+    }
+
+    IEnumerator E_EndGame()
+    {
+        yield return new WaitForSeconds(2);
+
+        EndScene.SetActive(true);
+        if (GlobalData.Instance.gameClear == true)
+        {
+            result.text = "YOU WIN!";
+        }
+        else
+        {
+            result.text = "YOU LOSE!";
+        }
+    }
+
     IEnumerator WildBattleTermination(PokemonScript player, PokemonScript wildPokemon)
     {
         battleEnds = true;
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
 
         int expGain = (wildPokemon.pokemon.ExpWorth * wildPokemon.lvl) / 7;
@@ -537,9 +565,31 @@ public class BattleSceneManager : MonoBehaviour
         GlobalData.Instance.monney += 50;
     }
 
+    IEnumerator TrainerBattleTermination(PokemonScript player, PokemonScript wildPokemon)
+    {
+        battleEnds = true;
+
+        yield return new WaitForSeconds(1);
+
+        Destroy(activeTrainer.gameObject);
+        activeTrainer = null;
+        if (GlobalData.Instance.beatTrainer1 == false)
+        {
+            GlobalData.Instance.beatTrainer1 = true;
+        }
+        _pokemonInventory.HealAllPokemon();
+        inBattle = false;
+        ToMainMenu();
+        battleEnds = false;
+        InBattleProgresion = false;
+        playerGameObject.BattleEnds();
+        StopAllCoroutines();
+        StoryProgression.Instance.StoryProgresion();
+    }
+
     IEnumerator CaptureAttempt(PokemonScript wildPokemon)
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         bool captured = Capture(wildPokemon);
 
@@ -557,6 +607,8 @@ public class BattleSceneManager : MonoBehaviour
             PokemonScript playerPokemon = PokemonSlotInBattle[0].GetComponent<PokemonSlot>().GetPokemon();
             Debug.Log("Enemy Attack");
             Attack(wildPokemon, playerPokemon, false);
+
+            yield return new WaitForSeconds(1);
 
             if (playerPokemon.currentHP < 0)
             {
@@ -600,6 +652,8 @@ public class BattleSceneManager : MonoBehaviour
 
             Debug.Log("Enemy Attack");
             Attack(wildPokemon, playerPokemon, false);
+
+            yield return new WaitForSeconds(1);
 
             if (playerPokemon.currentHP < 0)
             {

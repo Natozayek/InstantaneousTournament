@@ -223,14 +223,22 @@ public class PokemonScript : MonoBehaviour
             position = GameObject.Find("EnemyPokemon");
             transform.parent = position.transform;
             transform.position = position.transform.position;
+            lvl = pkmScript.lvl;
             SetXpNeeded();
         }
-        lvl = pkmScript.lvl;
+ 
+    }
+
+    public void ResetBuffs()
+    {
+        BuffAtk = 0;
+        BuffDef = 0;
+        BuffSpeed = 0;
     }
 
     public void SetXpNeeded()
     {
-        XpForNextLevel = 100 + (lvl * 40); 
+        XpForNextLevel = (lvl * 18); 
     }
 
     public void LvlUp()

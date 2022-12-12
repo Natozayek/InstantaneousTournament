@@ -50,6 +50,12 @@ public class PositionAdjuster : MonoBehaviour
             case PositionChangeEnum.CAVE2TOFOREST:
                 positionListIndex = 0;
                 break;
+            case PositionChangeEnum.DEFEAT:
+                positionListIndex = 1;
+                break;
+            case PositionChangeEnum.TOURNAMENT:
+                positionListIndex = 2;
+                break;
             default:
                 break;
         }

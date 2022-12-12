@@ -46,7 +46,15 @@ public class PokemonInventory : MonoBehaviour
             GoBack.gameObject.SetActive(true);
         }
 
-        SelectedPokemon = PokemonInventoryList[pokemonIndex];
+        if(MovementController.Instance.hasStartingPokemon == true)
+        {
+            SelectedPokemon = PokemonInventoryList[pokemonIndex];
+        }
+        else
+        {
+            SelectedPokemon = null;
+        }
+
         if(playerMenu.active == true)
         {
             UpdatePokemonSlotMenu();
@@ -119,6 +127,14 @@ public class PokemonInventory : MonoBehaviour
         }
     }
 
+    public void resetAllBuffs()
+    {
+        for (int i = 0; i < PokemonInventoryList.Count; i++)
+        {
+            PokemonInventoryList[i].GetComponent<PokemonScript>().ResetBuffs();
+        }
+    }
+
     public void ChoosePokemon()
     {
         battleSceneManager.PokemonSlotInBattle[0].GetComponent<PokemonSlot>().AddPokemonToSlot(SelectedPokemon);
@@ -126,7 +142,8 @@ public class PokemonInventory : MonoBehaviour
 
     public void ChangeActivePokemon(int newPokemonIndex)
     {
-        pokemonIndex = newPokemonIndex; //
+        PokemonInventoryList[pokemonIndex].GetComponent<PokemonScript>().ResetBuffs();
+        pokemonIndex = newPokemonIndex;
     }
 
     public int GetPokemonsAlive()
@@ -140,6 +157,18 @@ public class PokemonInventory : MonoBehaviour
             }
         }
         return pokemonAlive;
+    }
+
+    public bool HasPokemonsAlive()
+    {
+        for (int i = 0; i < PokemonInventoryList.Count; i++)
+        {
+            if (PokemonInventoryList[i].GetComponent<PokemonScript>().currentHP > 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool HasPokeballs()

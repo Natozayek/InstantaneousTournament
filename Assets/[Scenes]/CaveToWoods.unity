@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 77890492}
   - component: {fileID: 77890493}
   m_Layer: 6
-  m_Name: Cave2Exit
+  m_Name: CaveExit
   m_TagString: Cave2Exit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6298,16 +6298,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 0, y: -11, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 27
-      m_TileSpriteIndex: 27
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 4, y: -11, z: 0}
     second:
       serializedVersion: 2
@@ -6573,16 +6563,6 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 17
       m_TileSpriteIndex: 17
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 0, y: -10, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 28
-      m_TileSpriteIndex: 28
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -11874,10 +11854,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: f0c5403fb90aad4408170a8ce63dce20, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 11f6535edffcd8d4c9518797e7c7d135, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 87c9179c5006a6f47bc66643902d05ec, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: e82d48b85fd6e1049b5b616a37171d11, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 3bafc6ad60eb40e47a01023b0d67ac3f, type: 2}
   - m_RefCount: 3
@@ -11949,10 +11929,10 @@ Tilemap:
     m_Data: {fileID: 862149544279488189, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 2227077977291374906, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 3097696964082026146, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -4095777183076670734, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 1935722757896075195, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
   - m_RefCount: 3
@@ -11970,7 +11950,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 933273140, guid: 24a1784168b944c4cbecd3908d7aea6c, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 1021
+  - m_RefCount: 1019
     m_Data:
       e00: 1
       e01: 0
@@ -12025,7 +12005,7 @@ Tilemap:
       e32: 2.72e-43
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 1021
+  - m_RefCount: 1019
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -12058,7 +12038,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568858159}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 9fbd66b6426fa044982ca5a73ece136b, type: 2}
   m_IsTrigger: 0
@@ -12726,6 +12706,16 @@ Tilemap:
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
   - first: {x: -2, y: -11, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 90
+      m_TileSpriteIndex: 90
+      m_TileMatrixIndex: 2
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 0, y: -11, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 90
@@ -14197,7 +14187,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 79da2a1ad550f774cb0a98bfd1624c8a, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: ba3ed8145dfa94f49bac7346d24fdcf7, type: 2}
-  - m_RefCount: 126
+  - m_RefCount: 127
     m_Data: {fileID: 11400000, guid: aa210f7d600c0cf4c96b7a85a02f904a, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 11f6535edffcd8d4c9518797e7c7d135, type: 2}
@@ -14392,7 +14382,7 @@ Tilemap:
     m_Data: {fileID: -6418478202148368940, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 3232067443269629860, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
-  - m_RefCount: 126
+  - m_RefCount: 127
     m_Data: {fileID: -2385010370914382598, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 3097696964082026146, guid: 4fe5ece6bec0a3443b8788d1ba99dcd9, type: 3}
@@ -14443,7 +14433,7 @@ Tilemap:
       e31: 4.41e-43
       e32: 4.37e-43
       e33: 4.41e-43
-  - m_RefCount: 177
+  - m_RefCount: 178
     m_Data:
       e00: 1
       e01: 0
@@ -14462,7 +14452,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 177
+  - m_RefCount: 178
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -14501,29 +14491,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  PokemonPrefab: {fileID: 630140236333748738, guid: 8736556b24cac374185b2eaf073d6b19, type: 3}
-  CurrentMaxLVL: 4
-  CurrentMinLVL: 1
+  PokemonPrefab: {fileID: 630140236333748738, guid: 08ddc032762aa3e4aab9acc8517dc4ea, type: 3}
+  CurrentMaxLVL: 0
+  CurrentMinLVL: 0
   PokemonListFromBush:
-  - {fileID: 11400000, guid: 8da5d9ee105d34e47ac70676dc24ee6a, type: 2}
-  - {fileID: 11400000, guid: f6e98a492d4216545b3391f303fb132b, type: 2}
-  - {fileID: 11400000, guid: ab8b57f927b6644419fe025c740a2e00, type: 2}
-  - {fileID: 11400000, guid: f949d9d5df873d343a5adeaf85b0dcd1, type: 2}
-  - {fileID: 11400000, guid: e1a187fde82e71d4098fed3c2f01b039, type: 2}
-  - {fileID: 11400000, guid: 1887853814e7dd84399d9bfc09d16be3, type: 2}
-  - {fileID: 11400000, guid: b3cb47b0b3e32cb498c659146064a76a, type: 2}
-  - {fileID: 11400000, guid: 23e6a033ce9432d4e95f0adcaf74ab6c, type: 2}
   - {fileID: 11400000, guid: 1baa602093c4a3540a87f91b2387057e, type: 2}
-  - {fileID: 11400000, guid: 07bc81c76d5d3a5408e93b6497ba09ee, type: 2}
-  - {fileID: 11400000, guid: 1baa602093c4a3540a87f91b2387057e, type: 2}
-  - {fileID: 11400000, guid: a7a21b88f1ecb5d49b8b49de7659ba85, type: 2}
-  - {fileID: 11400000, guid: a96e36e5ea22b6142996b0b97efa3bcc, type: 2}
-  - {fileID: 11400000, guid: 567bc1249dcf1e247a4f54df41f193a3, type: 2}
-  - {fileID: 11400000, guid: 4347dbfcf39a3c04cac914a2d3d0807f, type: 2}
-  - {fileID: 11400000, guid: 075b926930bbcd844847e2c5d6afd848, type: 2}
-  - {fileID: 11400000, guid: b82557c37be96b84d875cd0828458323, type: 2}
-  - {fileID: 11400000, guid: ecda2ec867e0326439503e6ef41d4e19, type: 2}
-  PokemonListFromBushChancesOfAppearing: 070000000400000007000000070000000700000007000000070000000400000006000000070000000600000006000000010000000400000002000000060000000600000006000000
+  PokemonListFromBushChancesOfAppearing: 64000000
   pokemonListFinal: []
   battleSceneManager: {fileID: 0}
 --- !u!1 &1485479998293838824

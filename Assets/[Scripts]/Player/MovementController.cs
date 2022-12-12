@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 using static UnityEditor.PlayerSettings;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -54,6 +55,8 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     //All of this are to make the character unable to move into objects while respecting the tile movement
     //Also will help on the futute with interaction stuff. I did try using only one that changed places when 
     //Player moved but got stuck with a movement bug
+    public List<InteractSquare> l_Squares;
+
     public GameObject downBox;
     InteractSquare DownCollider;
 
@@ -81,13 +84,18 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
     public NPCScript activeNpc;
     public ChatBox ChatBoxManager;
+    public TimePanelManager TimePanel;
+
+    public bool hasStartingPokemon = false;
+    public bool hasPokemonAlive;
+    public bool InTrainerBattle;
     #endregion
 
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        activeAnimation = spriteAnimDown;
+        activeAnimation = spriteAnimRight;
         if (Instance == null)
         {
             Instance = this;
@@ -131,6 +139,35 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     // Update is called once per frame
     void Update()
     {
+        if(GlobalData.Instance.TournamentTime == true)
+        {
+            canMove = false;
+            if (InTrainerBattle == false)
+            {
+                StartCoroutine(GoToTrainerBattle());
+            }
+
+        }
+
+        if(hasStartingPokemon == true)
+        {
+            hasPokemonAlive = pokemonInventory.HasPokemonsAlive();
+            if (hasPokemonAlive == false)
+            {
+                inBush = false;
+                BattleEnds();
+                GoToColiseo();
+                positionChange = PositionChangeEnum.DEFEAT;
+                pokemonInventory.HealAllPokemon();
+            }
+        }
+
+
+
+        if(StoryProgression.Instance.onStoryProgression == true)
+        {
+            canMove = false;
+        }
 
         if (canMove == false)
         {
@@ -343,7 +380,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         battleS.GetComponent<BattleSceneManager>().ReturnPokemon().transform.parent = pokemonInventory.transform;
         battleS.GetComponent<BattleSceneManager>().PokemonPlayerFleeSupport();
         battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
-        //battleS.gameObject.SetActive(false);
+        pokemonInventory.resetAllBuffs();
         canMove = true;
     }
 
@@ -354,6 +391,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToCaveCoro());
+        ResetSquares();
     }
     public void GoToCaveToWoods()
     {
@@ -362,6 +400,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToCaveWoodsCoro());
+        ResetSquares();
     }
     public void GoToWoods()
     {
@@ -370,6 +409,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToWoodsCoro());
+        ResetSquares();
     }
     public void GoToTown()
     {
@@ -378,14 +418,16 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToTownCoro());
+        ResetSquares();
     }
     public void GoToColiseo()
     {
         canMove = false;
-        StopAllCoroutines();
+        //StopAllCoroutines();
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToColiseoCoro());
+        ResetSquares();
     }
 
     public void GoToIsland()
@@ -395,6 +437,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToIslandCoro());
+        ResetSquares();
     }
 
     public void Interact()
@@ -403,8 +446,51 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if(activeNpc.isProfesor == true)
         {
             pokemonInventory.HealAllPokemon();
+            StartCoroutine(InteractStart());
         }
-        StartCoroutine(InteractStart());
+        else if (activeNpc.isShop == true)
+        {
+            string text;
+            if(GlobalData.Instance.monney >= 200)
+            {
+                text = activeNpc.mainChat;
+                ChatBoxManager.ChatBoxActivateShop(text);
+            }
+            else
+            {
+                StartCoroutine(InteractStart());
+            }
+            
+        }
+        else if(activeNpc.isPokeball == true)
+        {
+            string text = activeNpc.mainChat;
+            GameObject pokemon = activeNpc.pokemon;
+            ChatBoxManager.ChatBoxActivatePokeball(text);
+        }
+        else
+        {
+            StartCoroutine(InteractStart());
+        }
+
+    }
+
+    public void ResetSquares()
+    {
+        interactBox.GetComponent<InteractSquare>().isObstacle = false;
+        foreach (InteractSquare Square in l_Squares)
+        {
+            Square.isObstacle = false;
+        }
+    }
+
+    public void ChooseStartingPokemon()
+    {
+        if (hasStartingPokemon == false)
+        {
+            pokemonInventory.AddCapturedPokemon(activeNpc.pokemon);
+            hasStartingPokemon = true;
+        }    
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -452,7 +538,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         if (other.CompareTag("Cave2Exit"))
         {
             GoToTown();
-            positionChange = PositionChangeEnum.CAVETOMAIN;
+            positionChange = PositionChangeEnum.CAVE2TOMAIN;
         }
 
         if (other.CompareTag("IslandEntrance"))
@@ -488,10 +574,31 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     {
         yield return new WaitForSeconds(0.4f);
         battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
-        //battleS.gameObject.SetActive(true); //
         audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
         pokemonInventory.ChoosePokemon();
         selectedBush.Encounter();
+        fader.fadeOut();
+    }
+
+    public IEnumerator GoToTrainerBattle()
+    {
+        InTrainerBattle = true;
+        GoToColiseo();
+        positionChange = PositionChangeEnum.TOURNAMENT;
+        //Debug.Log("P1");
+        
+        //yield return new WaitForSeconds(1.5f);
+
+        //Debug.Log("P2");
+        //fader.fadeInBattle();
+
+        yield return new WaitForSeconds(0.4f);
+
+        //Debug.Log("P3");
+        battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
+        battleS.GetComponent<BattleSceneManager>().isTrainerBattle = true;
+        audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
+        pokemonInventory.ChoosePokemon();
         fader.fadeOut();
     }
 

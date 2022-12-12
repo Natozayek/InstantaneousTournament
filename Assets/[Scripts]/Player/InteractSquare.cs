@@ -18,36 +18,8 @@ public class InteractSquare : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 7)
-        {
-            isObstacle = true;
-        }
-        if (collision.gameObject.tag == "NPC")
-        {
-            isObstacle = true;
-            npc = collision.gameObject.GetComponent<NPCScript>();
-        }
-
-        //if (MovementController.Instance.interactBox == this)
-        //{
-        //    if (collision.gameObject.tag == "NPC")
-        //    {
-        //        MovementController.Instance.activeNpc = collision.gameObject.GetComponent<NPCScript>();
-        //    }
-        //    else
-        //    {
-        //        MovementController.Instance.activeNpc = null;
-        //    }
-        //}
-
-
+        if(npc != null)
+        { isObstacle = true; }    
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -56,11 +28,24 @@ public class InteractSquare : MonoBehaviour
         {
             isObstacle = false;
         }
-        if (collision.gameObject.tag == "NPC")
+        else if (collision.gameObject.tag == "NPC")
         {
             isObstacle = false;
             npc = null;
         }
 
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            isObstacle = true;
+        }
+        else if (collision.gameObject.tag == "NPC")
+        {
+            isObstacle = true;
+            npc = collision.gameObject.GetComponent<NPCScript>();
+        }
     }
 }

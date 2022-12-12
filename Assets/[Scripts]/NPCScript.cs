@@ -6,12 +6,21 @@ public class NPCScript : MonoBehaviour
 {
     public bool isProfesor = false;
     public bool isShop = false;
+    public bool isPokeball = false;
+
+    public GameObject pokemon;
+
+
     public string mainChat = "";
     public string chat1 = "";
     public string chat2 = "";
     void Start()
     {
         mainChat = chat1;
+        if(isPokeball == false)
+        {
+            pokemon = null;
+        }
     }
 
     // Update is called once per frame
@@ -26,6 +35,13 @@ public class NPCScript : MonoBehaviour
             else
             {
                 mainChat = chat2;
+            }
+        }
+        if(isPokeball == true)
+        {
+            if(MovementController.Instance.hasStartingPokemon == true)
+            {
+                gameObject.SetActive(false);
             }
         }
     }

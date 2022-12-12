@@ -85,13 +85,17 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public NPCScript activeNpc;
     public ChatBox ChatBoxManager;
     public TimePanelManager TimePanel;
+
+    public bool hasStartingPokemon = false;
+    public bool hasPokemonAlive;
+    public bool InTrainerBattle;
     #endregion
 
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        activeAnimation = spriteAnimDown;
+        activeAnimation = spriteAnimRight;
         if (Instance == null)
         {
             Instance = this;
@@ -135,6 +139,35 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     // Update is called once per frame
     void Update()
     {
+        if(GlobalData.Instance.TournamentTime == true)
+        {
+            canMove = false;
+            if (InTrainerBattle == false)
+            {
+                StartCoroutine(GoToTrainerBattle());
+            }
+
+        }
+
+        if(hasStartingPokemon == true)
+        {
+            hasPokemonAlive = pokemonInventory.HasPokemonsAlive();
+            if (hasPokemonAlive == false)
+            {
+                inBush = false;
+                BattleEnds();
+                GoToColiseo();
+                positionChange = PositionChangeEnum.DEFEAT;
+                pokemonInventory.HealAllPokemon();
+            }
+        }
+
+
+
+        if(StoryProgression.Instance.onStoryProgression == true)
+        {
+            canMove = false;
+        }
 
         if (canMove == false)
         {
@@ -347,7 +380,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         battleS.GetComponent<BattleSceneManager>().ReturnPokemon().transform.parent = pokemonInventory.transform;
         battleS.GetComponent<BattleSceneManager>().PokemonPlayerFleeSupport();
         battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
-        //battleS.gameObject.SetActive(false);
+        pokemonInventory.resetAllBuffs();
         canMove = true;
     }
 
@@ -390,7 +423,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public void GoToColiseo()
     {
         canMove = false;
-        StopAllCoroutines();
+        //StopAllCoroutines();
         isMoving = false;
         fader.fadeIn();
         fader.StartCoroutine(fader.GoToColiseoCoro());
@@ -429,6 +462,12 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             }
             
         }
+        else if(activeNpc.isPokeball == true)
+        {
+            string text = activeNpc.mainChat;
+            GameObject pokemon = activeNpc.pokemon;
+            ChatBoxManager.ChatBoxActivatePokeball(text);
+        }
         else
         {
             StartCoroutine(InteractStart());
@@ -444,6 +483,16 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
             Square.isObstacle = false;
         }
     }
+
+    public void ChooseStartingPokemon()
+    {
+        if (hasStartingPokemon == false)
+        {
+            pokemonInventory.AddCapturedPokemon(activeNpc.pokemon);
+            hasStartingPokemon = true;
+        }    
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("CaveNtrance"))
@@ -525,10 +574,31 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     {
         yield return new WaitForSeconds(0.4f);
         battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
-        //battleS.gameObject.SetActive(true); //
         audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
         pokemonInventory.ChoosePokemon();
         selectedBush.Encounter();
+        fader.fadeOut();
+    }
+
+    public IEnumerator GoToTrainerBattle()
+    {
+        InTrainerBattle = true;
+        GoToColiseo();
+        positionChange = PositionChangeEnum.TOURNAMENT;
+        //Debug.Log("P1");
+        
+        //yield return new WaitForSeconds(1.5f);
+
+        //Debug.Log("P2");
+        //fader.fadeInBattle();
+
+        yield return new WaitForSeconds(0.4f);
+
+        //Debug.Log("P3");
+        battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
+        battleS.GetComponent<BattleSceneManager>().isTrainerBattle = true;
+        audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
+        pokemonInventory.ChoosePokemon();
         fader.fadeOut();
     }
 

@@ -229,9 +229,16 @@ public class PokemonScript : MonoBehaviour
  
     }
 
+    public void ResetBuffs()
+    {
+        BuffAtk = 0;
+        BuffDef = 0;
+        BuffSpeed = 0;
+    }
+
     public void SetXpNeeded()
     {
-        XpForNextLevel = 100 + (lvl * 40); 
+        XpForNextLevel = (lvl * 18); 
     }
 
     public void LvlUp()

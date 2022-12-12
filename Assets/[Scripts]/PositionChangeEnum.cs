@@ -15,5 +15,7 @@ public enum PositionChangeEnum
     MAINTOCAVE2 = 8,
     MAINTOISLAND = 9,
     CAVE2TOFOREST = 10,
+    DEFEAT = 11,
+    TOURNAMENT = 12,
 
 }

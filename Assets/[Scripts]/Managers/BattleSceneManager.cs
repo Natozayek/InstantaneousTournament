@@ -20,6 +20,10 @@ public class BattleSceneManager : MonoBehaviour
     bool battleEnds = false;
     public bool hasToChangePokemon = false;
 
+    public Trainer activeTrainer;
+    public bool isTrainerBattle;
+    public bool inBattle = false;
+
     //public Button AttackButton;
 
 
@@ -46,7 +50,24 @@ public class BattleSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GlobalData.Instance.TournamentTime == true && isTrainerBattle == true)
+        {
+            if(inBattle == false)
+            {
+                if (GlobalData.Instance.beatTrainer1 == false)
+                {
+                    activeTrainer = GlobalData.Instance.trainer1.GetComponent<Trainer>();
+                    activeTrainer.ChoosePokemon();
+                }
+                else
+                {
+                    activeTrainer = GlobalData.Instance.trainer2.GetComponent<Trainer>();
+                    activeTrainer.ChoosePokemon();
+                }
+                inBattle = true;
+            }
 
+        }
     }
 
     public void ToogleBattleMenu()
@@ -205,7 +226,22 @@ public class BattleSceneManager : MonoBehaviour
             if (enemyPokemon.currentHP <= 0)
             {
                 //Check if it is a Trainer Battle
-                StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+                if(isTrainerBattle == true)
+                {
+                    if(activeTrainer.activePokemon == 2)
+                    {
+                        StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+                    }
+                    else
+                    {
+                        activeTrainer.activePokemon++;
+                    }
+                }
+                else
+                {
+                    StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+                }
+
             }
             else
             {
@@ -251,7 +287,21 @@ public class BattleSceneManager : MonoBehaviour
                 if (enemyPokemon.currentHP <= 0)
                 {
                     //Check if it is a Trainer Battle
-                    StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+                    if (isTrainerBattle == true)
+                    {
+                        if (activeTrainer.activePokemon == 2)
+                        {
+                            StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+                        }
+                        else
+                        {
+                            activeTrainer.activePokemon++;
+                        }
+                    }
+                    else
+                    {
+                        StartCoroutine(WildBattleTermination(playerPokemon, enemyPokemon));
+                    }
                 }
             }    
         }

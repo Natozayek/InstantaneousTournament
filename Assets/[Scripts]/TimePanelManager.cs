@@ -19,7 +19,11 @@ public class TimePanelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PassTime();
+        if (GlobalData.Instance.TournamentTime == false)
+        {
+            PassTime();
+        }
+
         min.text = GlobalData.Instance.Min.ToString();
         sec.text = GlobalData.Instance.Sec.ToString();
     }
@@ -33,6 +37,8 @@ public class TimePanelManager : MonoBehaviour
         }
 
         f_Sec -= Time.deltaTime;
+        //f_Sec -= Time.deltaTime;//
+        //f_Sec -= Time.deltaTime;//
         GlobalData.Instance.Sec = (int)f_Sec;
     }
 

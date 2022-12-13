@@ -383,7 +383,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         {
             if (battleS.GetComponent<BattleSceneManager>().InBattleProgresion == false)
             {
-                audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
+               
                 BattleEnds();
             }
         }
@@ -396,6 +396,32 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
         pokemonInventory.resetAllBuffs();
         canMove = true;
+
+        string sceneName;
+        sceneName = SceneManager.GetActiveScene().name;
+        Debug.Log(sceneName);
+        switch (sceneName)
+        {
+            case "MainScene1":
+                audioManager.CrossFadeTO(AudioManager.TrackID.inTown);
+                break;
+            case "Coliseo":
+                audioManager.CrossFadeTO(AudioManager.TrackID.inColiseo);
+                break;
+            case "Island":
+                audioManager.CrossFadeTO(AudioManager.TrackID.inIsland);
+                break;
+            case "Cave":
+                audioManager.CrossFadeTO(AudioManager.TrackID.inCave);
+                break;
+            case "CaveToWoods":
+                audioManager.CrossFadeTO(AudioManager.TrackID.inCave2);
+                break;
+            case "Woods":
+                audioManager.CrossFadeTO(AudioManager.TrackID.inWoods);
+                break;
+        }
+
     }
 
     public void GoToCave()
@@ -603,7 +629,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     {
         yield return new WaitForSeconds(0.4f);
         battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
-        audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
+        audioManager.CrossFadeTO(AudioManager.TrackID.inBattle);
         pokemonInventory.ChoosePokemon();
         selectedBush.Encounter();
         fader.fadeOut();
@@ -632,7 +658,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
         //Debug.Log("P3");
         battleS.GetComponent<BattleSceneManager>().ToogleBattleMenu();
         battleS.GetComponent<BattleSceneManager>().isTrainerBattle = true;
-        audioManager.CrossFadeTO(AudioManager.TrackID.inCave); //
+        audioManager.CrossFadeTO(AudioManager.TrackID.inBattle);
         pokemonInventory.ChoosePokemon();
         fader.fadeOut();
     }

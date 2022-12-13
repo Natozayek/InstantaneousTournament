@@ -35,11 +35,11 @@ public class GlobalData : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        TimeChoosed = StartSceneSingleton.Instance.time;
     }
 
     public void Start()
     {
-        TimeChoosed = StartSceneSingleton.Instance.time;
         Randomize();
     }
 

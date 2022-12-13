@@ -14,14 +14,16 @@ public class SceneManagement : MonoBehaviour
 
     
 
-    public void OnNewGameClicked()
+    public void OnNewGameClicked(int t)
     {
+        StartSceneSingleton.Instance.time = t;
         DisableButtons();
         StartCoroutine(GoToMainScene());
 
     }
     public void GoToMainMenu()
     {
+
         StartCoroutine(GoToMainMenuCoro());
     }
     public void OnContinueGameClicked()

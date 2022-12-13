@@ -141,14 +141,16 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     {
         if(GlobalData.Instance.TournamentTime == true)
         {
-            canMove = false;
-            if (InTrainerBattle == false)
+            if(canMove == true)
             {
+                canMove = false;
                 activeAnimation = spriteAnimRight;
                 SetDirection(Vector2.right, spriteAnimRight);
-                StartCoroutine(GoToTrainerBattle());
+                if (InTrainerBattle == false)
+                {
+                    StartCoroutine(GoToTrainerBattle());
+                }
             }
-
         }
 
         if(hasStartingPokemon == true)
@@ -671,5 +673,11 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
 
         ChatBoxManager.ChatBoxDeActivate();
         canMove = true;
+    }
+
+    public void Remove()
+    {
+        Instance = null;
+        Destroy(gameObject);
     }
 }

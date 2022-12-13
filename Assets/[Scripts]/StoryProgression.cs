@@ -73,4 +73,10 @@ public class StoryProgression : MonoBehaviour
             BattleSceneManager.Instance.EndGame();
         }
     }
+
+    public void Remove()
+    {
+        Instance = null;
+        Destroy(gameObject);
+    }
 }

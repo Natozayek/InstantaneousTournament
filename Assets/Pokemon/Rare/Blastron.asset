@@ -18,7 +18,7 @@ MonoBehaviour:
   attack1: {fileID: 11400000, guid: c44c5f8e4be766d4c84900cc1bd4a803, type: 2}
   attack2: {fileID: 11400000, guid: 7091bc04a585503459361e9c4f03deb1, type: 2}
   attack3: {fileID: 11400000, guid: 351d2249bd7e05f499ff51518971debc, type: 2}
-  BaseHP: 300
+  BaseHP: 16
   BaseAtk: 9
   BaseDef: 8
   BaseSpeed: 7

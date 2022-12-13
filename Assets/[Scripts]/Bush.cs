@@ -9,6 +9,10 @@ public class Bush : MonoBehaviour
     public GameObject PokemonPrefab;
     public int CurrentMaxLVL;
     public int CurrentMinLVL;
+
+    public float timer;
+    public int min;
+
     //To get the Player MovementController Script
     MovementController PlayerController;
     [Header("TypesOfPokemon \n ThatMayAppear")]
@@ -32,7 +36,33 @@ public class Bush : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        timer += Time.deltaTime;
+        if(timer > 60)
+        {
+            timer = 0;
+            min++;
+        }    
+
+        if(min < 3)
+        {
+            CurrentMaxLVL = 2;
+            CurrentMinLVL = 1;
+        }
+        else if (min < 6)
+        {
+            CurrentMaxLVL = 4;
+            CurrentMinLVL = 1;
+        }
+        else if (min < 9)
+        {
+            CurrentMaxLVL = 5;
+            CurrentMinLVL = 3;
+        }
+        else if (min < 12)
+        {
+            CurrentMaxLVL = 7;
+            CurrentMinLVL = 3;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -73,7 +103,7 @@ public class Bush : MonoBehaviour
         }
         Pokemon selectedPokemon = pokemonListFinal[random];
         GameObject newPokemon = Instantiate(PokemonPrefab);
-        int randomLvl = Random.Range(CurrentMinLVL, CurrentMaxLVL);
+        int randomLvl = Random.Range(CurrentMinLVL, CurrentMaxLVL+1);
         newPokemon.GetComponent<PokemonScript>().Initiate(selectedPokemon, false, randomLvl);
         battleSceneManager.GetComponent<BattleSceneManager>().PokemonSlotInBattle[1].GetComponent<PokemonSlot>().AddPokemonToSlot(newPokemon);
         newPokemon.GetComponent<PokemonScript>().SetXpNeeded();

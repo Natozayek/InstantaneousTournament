@@ -674,4 +674,10 @@ public class BattleSceneManager : MonoBehaviour
             InBattleProgresion = false;
         }
     }
+
+    public void Remove()
+    {
+        Instance = null;
+        Destroy(gameObject);
+    }
 }

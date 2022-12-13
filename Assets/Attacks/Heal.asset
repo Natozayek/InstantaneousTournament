@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65cde73da08cb34c88e302cad4456a4, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
-  Damage: 20
+  Damage: 10
   Accuaracy: 0
-  MaxPP: 10
+  MaxPP: 5
   Type: 3
   isOffensive: 0
   isHeal: 1

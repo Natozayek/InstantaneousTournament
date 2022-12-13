@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65cde73da08cb34c88e302cad4456a4, type: 3}
   m_Name: Bite
   m_EditorClassIdentifier: 
-  Damage: 15
+  Damage: 20
   Accuaracy: 0
   MaxPP: 20
   Type: 3

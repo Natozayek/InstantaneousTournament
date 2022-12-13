@@ -22,6 +22,7 @@ public class PokemonInventory : MonoBehaviour
     public bool inBattle = false;
 
     public TMP_Text pokeballCount;
+    public TMP_Text GoldCount;
     public MovementController m_MovementController;
 
     public GameObject SwitchPanel;
@@ -59,6 +60,7 @@ public class PokemonInventory : MonoBehaviour
         {
             UpdatePokemonSlotMenu();
             pokeballCount.text = m_MovementController.pokeballsOwned.ToString();
+            GoldCount.text = GlobalData.Instance.monney.ToString();
         }
 
         inMenu = playerMenu.active;

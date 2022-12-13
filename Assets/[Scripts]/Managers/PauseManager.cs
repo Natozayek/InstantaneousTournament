@@ -87,4 +87,11 @@ public class PauseManager : MonoBehaviour
         }
 
     }
+
+    public void Remove()
+    {
+        Instance = null;
+        Destroy(gameObject);
+    }
+
 }

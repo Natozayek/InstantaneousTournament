@@ -18,15 +18,15 @@ public class Trainer : MonoBehaviour
 
         if (GlobalData.Instance.TimeChoosed == 5)
         {
-            levelDesired = 5;
+            levelDesired = 3;
         }
         else if(GlobalData.Instance.TimeChoosed == 10)
         {
-            levelDesired = 8;
+            levelDesired = 5;
         }
         else
         {
-            levelDesired = 10;
+            levelDesired = 7;
         }
     }
 

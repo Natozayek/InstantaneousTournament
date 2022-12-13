@@ -19,7 +19,7 @@ MonoBehaviour:
   isOffensive: 0
   isHeal: 0
   isBuff: 1
-  buffType: 0
+  buffType: 3
   isEmpty: 0
   animationNamePlayer: AngerPoint
   animationNameEnemy: AngerPointE

@@ -39,6 +39,7 @@ public class GlobalData : MonoBehaviour
 
     public void Start()
     {
+        TimeChoosed = StartSceneSingleton.Instance.time;
         Randomize();
     }
 
@@ -68,4 +69,10 @@ public class GlobalData : MonoBehaviour
             TournamentTime = true;
         }
     }
+    public void Remove()
+    {
+        Instance = null;
+        Destroy(gameObject);
+    }
+
 }

@@ -242,7 +242,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4009881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75c5410fd2ab3a4b875e330f682c08c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e6fbe19f135385449e556f0b29a56e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9306810
@@ -479,8 +479,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4009886}
-        m_TargetAssemblyTypeName: SceneManagement, Assembly-CSharp
-        m_MethodName: GoToStartSceneCoroutine
+        m_TargetAssemblyTypeName: CreditsScript, Assembly-CSharp
+        m_MethodName: ToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

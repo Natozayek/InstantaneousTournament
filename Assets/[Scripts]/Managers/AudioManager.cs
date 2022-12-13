@@ -7,12 +7,18 @@ public class AudioManager : MonoBehaviour
 {
     public enum TrackID
     {
-        inCave,
+        inColiseo,
         inTown,
-        inWild,
+        inCave,
+        inCave2,
+        inWoods,
+        inIsland,
         inBattle,
-        inBattleExit,
-        isWalking
+        inVictory,
+        inStart,
+        inCredits,
+
+ 
     }
 
     //AUDIO SOURCES
@@ -41,21 +47,7 @@ public class AudioManager : MonoBehaviour
 
         private set { instance = value; }
     }
-
-
-    //private void Awake()
-    //{
-    //    if (Instance == null)
-    //    {
-    //        Instance = this;
-    //        DontDestroyOnLoad(gameObject);
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
-
+    
 
     void Start()
     {
@@ -71,7 +63,16 @@ public class AudioManager : MonoBehaviour
                 Destroy(managers.gameObject);
             }
         }
-       
+
+        if (SceneManager.GetActiveScene().name == "Coliseo")
+        {
+            playTrack(TrackID.inColiseo);
+        }
+        if (SceneManager.GetActiveScene().name == "StartScene")
+        {
+            playTrack(TrackID.inStart);
+        }
+
     }
 
     //Functions 
@@ -134,19 +135,40 @@ public class AudioManager : MonoBehaviour
 
     void OnSceneLoadedAction(Scene newScene, LoadSceneMode mode)
     {
+        if (newScene.name == "Coliseo")
+        {
+            CrossFadeTO(TrackID.inColiseo);
+        }
         if (newScene.name == "Cave")
         {
             CrossFadeTO(TrackID.inCave);
         }
         if(newScene.name == "MainScene1")
         {
-            
             CrossFadeTO(TrackID.inTown);
         }
+        if (newScene.name == "CaveToWoods")
+        {
+            CrossFadeTO(TrackID.inCave2);
+        }
+        if (newScene.name == "Island")
+        {
+            CrossFadeTO(TrackID.inIsland);
+        }
+        if (newScene.name == "Woods")
+        {
+            CrossFadeTO(TrackID.inWoods);
+        }
+
+        if (newScene.name == "StartScene")
+        {
+            CrossFadeTO(TrackID.inStart);
+        }
+        if (newScene.name == "Credits")
+        {
+            CrossFadeTO(TrackID.inCredits);
+        }
+
     }
-    //Fade out a track
-    //Fade in a track
-    //Crossfade to a new track
-    //Fade out & Fade in a new track
-    //Mix Management tracks
+
 }

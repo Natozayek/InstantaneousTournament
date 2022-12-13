@@ -20,8 +20,6 @@ public class Fader : MonoBehaviour
    private void Start()
    {
         fadeOut();
-        //audioManager = GetComponent<AudioManager>();
-        audioManager.playTrack(AudioManager.TrackID.inTown);
    }
 
 
@@ -84,11 +82,5 @@ public class Fader : MonoBehaviour
         fadeOut();
     }
 
-    //public IEnumerator GoToBattle(GameObject BattleScene)
-    //{
-    //    yield return new WaitForSeconds(0.4f);
-    //    BattleScene.SetActive(true);
-    //    fadeOut();
 
-    //}
 }

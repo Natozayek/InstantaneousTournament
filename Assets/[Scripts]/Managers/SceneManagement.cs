@@ -10,6 +10,8 @@ public class SceneManagement : MonoBehaviour
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueButton;
 
+    public GameObject TimeChooseGameObject;
+
     
 
     public void OnNewGameClicked()
@@ -41,15 +43,20 @@ public class SceneManagement : MonoBehaviour
     {
         DataPersistenceManager.instance.isThereAnyDataSaved = false;
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadSceneAsync("MainScene1");
+        SceneManager.LoadSceneAsync("Coliseo");
 
     }
     private IEnumerator GoToContinue()
     {
         DataPersistenceManager.instance.isThereAnyDataSaved = true;
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadSceneAsync("MainScene1");
+        SceneManager.LoadSceneAsync("Coliseo");
 
+    }
+
+    public void timeToChoose()
+    {
+        TimeChooseGameObject.SetActive(true);
     }
 
    

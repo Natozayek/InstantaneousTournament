@@ -41,10 +41,7 @@ public class StoryProgression : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            StoryProgresion();
-        }
+
     }
 
     public void StoryProgresion()

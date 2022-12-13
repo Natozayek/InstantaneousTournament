@@ -44,9 +44,9 @@ public class SceneManagement : MonoBehaviour
 
     private IEnumerator GoToMainScene()
     {
-        DataPersistenceManager.instance.isThereAnyDataSaved = false;
+        //DataPersistenceManager.instance.isThereAnyDataSaved = false;
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadSceneAsync("Coliseo");
+        SceneManager.LoadScene("Coliseo");
 
     }
     private IEnumerator GoToContinue()

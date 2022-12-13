@@ -11,6 +11,7 @@ public class SceneManagement : MonoBehaviour
     [SerializeField] private Button continueButton;
 
     public GameObject TimeChooseGameObject;
+    public GameObject text;
 
     
 
@@ -58,6 +59,7 @@ public class SceneManagement : MonoBehaviour
 
     public void timeToChoose()
     {
+        text.SetActive(false);
         TimeChooseGameObject.SetActive(true);
     }
 

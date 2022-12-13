@@ -654,6 +654,7 @@ public class MovementController : MonoBehaviour, IDataPersistence//IDataPersista
     public IEnumerator E_StartColiseumBattleBattle()
     {
         fader.fadeInBattle();
+        pokemonInventory.HealAllPokemon();
 
         yield return new WaitForSeconds(0.4f);
 

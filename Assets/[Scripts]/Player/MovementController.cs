@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
-using static UnityEditor.PlayerSettings;
+
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovementController : MonoBehaviour, IDataPersistence//IDataPersistance needed for saving
